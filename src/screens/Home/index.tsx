@@ -6,7 +6,6 @@ import {TouchableOpacity, View} from 'react-native';
 import colors from '../../theme/base/colors.ts';
 import QRScanner from '../../components/QRScanner';
 
-
 const HomeScreen: FC<HomeScreenProps> = () => {
   const [active, setActive] = useBoolean(false);
 
