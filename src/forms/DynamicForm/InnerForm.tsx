@@ -1,12 +1,12 @@
-import {Field} from 'formik';
+import React, {Field} from 'formik';
 import {createRef, FC, Fragment} from 'react';
 import {View} from 'react-native';
 import FormButtons from './FormButtons';
 import OnSubmitValidationError from './OnSubmitValidationError';
 import Submitting from './Submitting';
-import {createFormStyles} from '@/forms/DynamicForm/styles';
-import {InnerFormProps} from '@/forms/types';
-import {useEvent, useThemedStyles} from '@/hooks';
+import {InnerFormProps} from '../types.ts';
+import {createFormStyles} from './styles.ts';
+import {useEvent, useThemedStyles} from '../../hooks';
 
 const InnerForm: FC<InnerFormProps> = ({
   isSubmitting,

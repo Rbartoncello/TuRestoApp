@@ -1,7 +1,7 @@
 import type {ButtonProps as RNEButtonProps} from '@rneui/base';
 import {Button as BaseButton} from '@rneui/base';
 import {Button as SolidButton, withTheme} from '@rneui/themed';
-import {FC} from 'react';
+import React, {FC} from 'react';
 
 const ClearButton = withTheme(BaseButton, 'ClearButton');
 const OutlineButton = withTheme(BaseButton, 'OutlineButton');

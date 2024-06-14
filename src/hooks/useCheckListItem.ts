@@ -1,4 +1,4 @@
-import { useEvent } from "./index.ts";
+import {useEvent} from './index.ts';
 
 const useCheckListItem = (value: any, onChange: any) =>
   useEvent((option: any) => {

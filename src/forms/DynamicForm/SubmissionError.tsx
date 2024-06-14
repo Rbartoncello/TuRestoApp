@@ -1,6 +1,6 @@
 import {connect, FormikProps, FormikValues} from 'formik';
-import {FC, Fragment} from 'react';
-import {ErrorFeedback} from '@/forms/fields';
+import React, {FC, Fragment} from 'react';
+import {ErrorFeedback} from '../fields';
 
 const config = {
   label: 'You have not filled all the required fields correctly.',

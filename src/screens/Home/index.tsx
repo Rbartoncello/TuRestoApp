@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import type {HomeScreenProps} from './types';
 import {Container, Text} from '../../components';
 import {useBoolean} from '../../hooks';

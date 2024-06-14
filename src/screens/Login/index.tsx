@@ -1,6 +1,6 @@
 import type {FormikErrors, FormikHelpers} from 'formik';
 import {Field, Formik} from 'formik';
-import {FC, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {useRef} from 'react';
 import {View} from 'react-native';
 import {createStyles} from './styles';

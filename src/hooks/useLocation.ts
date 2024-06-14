@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {PermissionsAndroid} from 'react-native';
-import { useEvent } from "./index.ts";
+import {useEvent} from './index.ts';
 
 const useLocation = () => {
   const [status, setStatus] = useState<boolean>(false);

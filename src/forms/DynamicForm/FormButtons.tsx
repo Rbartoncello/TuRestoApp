@@ -1,8 +1,8 @@
-import {FC, Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 import {createButtonsStyles} from './styles';
-import {Button} from '@/components';
-import {FormButtonsProps} from '@/forms/types';
-import {useThemedStyles} from '@/hooks';
+import {FormButtonsProps} from '../types.ts';
+import {useThemedStyles} from '../../hooks';
+import {Button} from '../../components';
 
 const FormButtons: FC<FormButtonsProps> = ({
   formSchema = {},

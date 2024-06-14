@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {View} from 'react-native';
 import styles from './styles';
 import QRCodeScanner, {RNQRCodeScannerProps} from 'react-native-qrcode-scanner';

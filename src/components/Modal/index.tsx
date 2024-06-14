@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {IconProps} from '../../types';
 import {useThemedStyles} from '../../hooks';
 import {createStyles} from './styles.tsx';

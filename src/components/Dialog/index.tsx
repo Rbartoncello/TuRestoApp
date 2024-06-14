@@ -1,5 +1,5 @@
 import {Dialog as RNEDialog} from '@rneui/themed';
-import {FC, PropsWithChildren} from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import {Text} from 'react-native';
 import {createStyles} from './styles';
 import {useThemedStyles} from '../../hooks';

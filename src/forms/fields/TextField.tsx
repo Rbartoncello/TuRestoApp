@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import useChange from '../hooks/useChange';
 import getFieldError from '../utils/getFieldError';
 import {createInputStyles} from './styles';

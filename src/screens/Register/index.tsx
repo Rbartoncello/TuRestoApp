@@ -1,6 +1,6 @@
+import React, {useRef} from 'react';
 import type {FormikHelpers} from 'formik';
 import {Field, Formik} from 'formik';
-import {useRef} from 'react';
 import {Pressable, View} from 'react-native';
 import {createStyles} from './styles';
 import type {FormValues} from './types';
@@ -11,7 +11,6 @@ import {ErrorFeedback, PasswordField, TextField} from '../../forms/fields';
 import {FIREBASE_AUTH} from '../../services/firebase/FirebaseConfig.ts';
 import {createUserWithEmailAndPassword} from 'firebase/auth';
 import useNavigator from '../../hooks/useNavigation.ts';
-import {admin, user_2, user_3} from '../../constans/users.ts';
 import ArrowLeft from '../../assets/icons/ArrowLeft.tsx';
 
 const initialValues: FormValues = {email: '', password: ''};

@@ -9,4 +9,4 @@ export const equalsTo = (ref: any, message: string) =>
     test(value: any) {
       return value === this.resolve(ref);
     },
-  }) as TestConfig;
+  } as TestConfig);

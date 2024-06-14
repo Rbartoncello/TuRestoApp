@@ -1,6 +1,6 @@
 import type {InputProps} from '@rneui/themed';
 import {Input} from '@rneui/themed';
-import {FC, Ref} from 'react';
+import React, {FC, Ref} from 'react';
 import {ReturnKeyTypeOptions, StyleProp, ViewStyle} from 'react-native';
 import createStyles from './styles';
 import {useBoolean, useEvent, useThemedStyles} from '../../../hooks';

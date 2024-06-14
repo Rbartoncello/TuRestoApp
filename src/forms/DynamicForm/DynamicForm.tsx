@@ -1,11 +1,11 @@
 import {Formik, FormikHelpers, FormikValues} from 'formik';
-import {FC, useMemo, useState} from 'react';
+import React, {FC, useMemo, useState} from 'react';
 import ComponentsRegistry from './ComponentsRegistry';
 import InnerForm from './InnerForm';
-import {DynamicFormProps} from '@/forms/types';
-import {formatValues} from '@/forms/utils';
-import {buildFormSchema} from '@/forms/validations';
-import {useEvent} from '@/hooks';
+import {DynamicFormProps} from '../types.ts';
+import {buildFormSchema} from '../index.ts';
+import {useEvent} from '../../hooks';
+import formatValues from '../utils/formatValues.ts';
 
 export const DynamicForm: FC<DynamicFormProps> = ({
   formSchema,

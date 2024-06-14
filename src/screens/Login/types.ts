@@ -5,8 +5,7 @@ export type FormValues = {
   password: string;
 };
 
-export type LoginProps = {
-};
+export type LoginProps = {};
 
 export type StateProps = {
   status: Status;

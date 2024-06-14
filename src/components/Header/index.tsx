@@ -1,6 +1,6 @@
 import {Route} from '@react-navigation/routers';
 import {Header as HeaderRNE} from '@rneui/themed';
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {Image, Pressable, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';

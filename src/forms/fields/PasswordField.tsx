@@ -1,11 +1,10 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {Pressable} from 'react-native';
 import useChange from '../hooks/useChange';
 import {DynamicFieldProps} from '../types.ts';
 import {useBoolean} from '../../hooks';
 import {TextInput} from '../../components';
 import {getFieldError} from '../utils';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {EyeIcon} from '../../assets/icons';
 import colors from '../../theme/base/colors.ts';
 

@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import {Pressable} from 'react-native';
 import TextInput, {TextInputProps} from '../TextInput';
 import {useBoolean} from '../../../hooks';

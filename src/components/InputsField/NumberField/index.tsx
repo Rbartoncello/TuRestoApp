@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import React, {FC} from 'react';
 import TextField, {TextInputProps} from '../TextInput';
 
 const NumberField: FC<TextInputProps> = ({...props}) => {

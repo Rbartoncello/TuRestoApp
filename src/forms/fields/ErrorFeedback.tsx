@@ -1,4 +1,4 @@
-import {FC, Fragment} from 'react';
+import React, {FC, Fragment} from 'react';
 import {createErrorFeedbackStyles} from './styles';
 import {ErrorFeedbackProps} from '../types.ts';
 import {useThemedStyles} from '../../hooks';
