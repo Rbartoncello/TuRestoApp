@@ -55,7 +55,8 @@ const Login: FC<LoginProps> = () => {
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validateOnMount
-        validationSchema={validationSchema}>
+        validationSchema={validationSchema}
+      >
         {({submitForm, dirty, status: state, setFieldValue}) => (
           <View style={styles.content}>
             <View
@@ -77,7 +78,8 @@ const Login: FC<LoginProps> = () => {
                 shadowRadius: 3.84,
 
                 elevation: 5,
-              }}>
+              }}
+            >
               <Field
                 accessibilityLabel="txt-login-username"
                 component={TextField}
@@ -123,7 +125,8 @@ const Login: FC<LoginProps> = () => {
               icon={<UserListIcon color={colors.white} />}
               openIcon={<UserSwitchIcon color={colors.white} />}
               onOpen={() => setOpen(!open)}
-              onClose={() => setOpen(!open)}>
+              onClose={() => setOpen(!open)}
+            >
               {users.map((user, index) => (
                 <SpeedDial.Action
                   key={index.toString()}

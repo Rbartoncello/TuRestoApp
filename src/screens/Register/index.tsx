@@ -69,7 +69,8 @@ const RegisterScreen = () => {
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validateOnMount
-        validationSchema={validationSchema}>
+        validationSchema={validationSchema}
+      >
         {({submitForm, setValues, values, dirty, status: state}) => (
           <View style={styles.content}>
             <View style={styles.content}>
@@ -101,7 +102,8 @@ const RegisterScreen = () => {
               />
             </View>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+              style={{flexDirection: 'row', justifyContent: 'space-evenly'}}
+            >
               <View style={styles.button}>
                 <Button
                   onPress={() => setValues(admin)}

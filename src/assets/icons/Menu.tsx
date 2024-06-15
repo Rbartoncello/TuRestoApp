@@ -9,7 +9,8 @@ const MenuIcon = (props: SvgProps) => (
     height={24}
     color="#000000"
     fill="none"
-    {...props}>
+    {...props}
+  >
     <Path
       d="M4 5L20 5"
       stroke="currentColor"

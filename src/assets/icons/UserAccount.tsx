@@ -9,7 +9,8 @@ const UserAccountIcon = (props: SvgProps) => (
     height={24}
     color="#000000"
     fill="none"
-    {...props}>
+    {...props}
+  >
     <Path
       d="M14 9H18"
       stroke="currentColor"

@@ -21,7 +21,8 @@ const HomeScreen: FC<HomeScreenProps> = () => {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.brandPrimary,
-      }}>
+      }}
+    >
       {!active ? (
         <View>
           <TouchableOpacity
@@ -34,14 +35,16 @@ const HomeScreen: FC<HomeScreenProps> = () => {
               height: 250,
               borderRadius: 20,
               backgroundColor: colors.brandSecondary,
-            }}>
+            }}
+          >
             <Text
               style={{
                 fontWeight: 'bold',
                 fontSize: 50,
                 flexWrap: 'wrap',
                 textAlign: 'center',
-              }}>
+              }}
+            >
               Escanear QR
             </Text>
           </TouchableOpacity>
