@@ -9,8 +9,7 @@ const MoneyReceiveCircleIcon = (props: SvgProps) => (
     height={24}
     color="#000000"
     fill="none"
-    {...props}
-  >
+    {...props}>
     <Path
       d="M14 2.22179C13.3538 2.09076 12.6849 2.02197 12 2.02197C6.47715 2.02197 2 6.49421 2 12.011C2 17.5277 6.47715 22 12 22C17.5228 22 22 17.5277 22 12.011C22 11.3269 21.9311 10.6587 21.8 10.0132"
       stroke="currentColor"

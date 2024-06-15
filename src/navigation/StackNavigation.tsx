@@ -22,8 +22,7 @@ export const StackNavigation = () => {
   return (
     <Stack.Navigator
       initialRouteName={token ? Routes.HOME : Routes.LOGIN}
-      screenOptions={options}
-    >
+      screenOptions={options}>
       <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />
       <Stack.Screen name={Routes.HOME} component={HomeScreen} />
     </Stack.Navigator>

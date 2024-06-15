@@ -34,15 +34,13 @@ const Modal: FC<ModalProps> = ({
       onClose={setActive.off}
       visible={active}
       style={styles.modal}
-      styleMessage={styles.message}
-    >
+      styleMessage={styles.message}>
       <Container style={styles.container}>
         <Button
           accessibilityLabel="btn-confirm"
           onPress={onConfirm}
           buttonStyle={styles.confirm}
-          containerStyle={styles.containerConfirm}
-        >
+          containerStyle={styles.containerConfirm}>
           Aceptar
         </Button>
       </Container>
