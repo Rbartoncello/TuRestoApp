@@ -1,3 +1,4 @@
+import React from 'react';
 import {Overlay} from '@rneui/themed';
 import {ActivityIndicator} from 'react-native';
 import theme from '../../theme/base';

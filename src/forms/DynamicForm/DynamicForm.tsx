@@ -43,7 +43,8 @@ export const DynamicForm: FC<DynamicFormProps> = ({
       onSubmit={handleSubmit}
       validateOnMount
       innerRef={innerRef}
-      enableReinitialize>
+      enableReinitialize
+    >
       {props => (
         <InnerForm
           {...props}

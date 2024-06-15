@@ -41,7 +41,8 @@ const Dialog: FC<PropsWithChildren<DialogProp>> = ({
       overlayStyle={{...styles.body, ...style}}
       isVisible={visible}
       onBackdropPress={onClose}
-      {...props}>
+      {...props}
+    >
       {title && (
         <RNEDialog.Title
           title={title}

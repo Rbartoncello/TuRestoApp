@@ -2,9 +2,28 @@ import theme from '../../theme/base';
 import colors from '../../theme/base/colors.ts';
 
 export const createStyles = () => ({
-  content: {
+  container: {
     flex: 1,
     minHeight: 240,
+  },
+  content: {
+    flex: 1,
+    borderWidth: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+    height: 250,
+    borderRadius: 25,
+    marginBottom: 120,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   logo: {
     width: 100,
@@ -37,5 +56,11 @@ export const createStyles = () => ({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: theme.spacing.marginVertical * 2,
+  },
+  speedDial: {
+    flex: 1,
+    top: -200,
+    marginBottom: 80,
+    elevation: 10,
   },
 });

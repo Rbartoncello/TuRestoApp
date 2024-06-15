@@ -6,7 +6,7 @@ import {useBoolean} from '../../hooks';
 import {TextInput} from '../../components';
 import {getFieldError} from '../utils';
 import {EyeIcon} from '../../assets/icons';
-import colors from '../../theme/base/colors.ts';
+import {createInputStyles} from './styles.ts';
 
 const PasswordField: FC<DynamicFieldProps> = ({
   field,
@@ -15,6 +15,7 @@ const PasswordField: FC<DynamicFieldProps> = ({
   onChange,
   ...props
 }) => {
+  const styles = createInputStyles();
   const [secureEntry, setSecureEntry] = useBoolean(true);
   const handleChange = useChange(form, field, onChange);
   return (
@@ -33,15 +34,7 @@ const PasswordField: FC<DynamicFieldProps> = ({
       onBlur={() => form.handleBlur(field.name)}
       label={config.label}
       placeholder={config.placeholder}
-      containerStyle={[
-        {
-          borderWidth: 1,
-          borderColor: colors.brandSecondary,
-          borderRadius: 8,
-          paddingLeft: 4,
-          height: 65,
-        },
-      ]}
+      containerStyle={[styles.container]}
     />
   );
 };

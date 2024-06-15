@@ -9,7 +9,8 @@ const SquareLockIcon = (props: SvgProps) => (
     height={24}
     color="#000000"
     fill="none"
-    {...props}>
+    {...props}
+  >
     <Path
       d="M12 16.5V14.5"
       stroke="currentColor"
