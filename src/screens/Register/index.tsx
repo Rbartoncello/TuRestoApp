@@ -55,9 +55,9 @@ const RegisterScreen = () => {
   const passwordRef = useRef();
 
   return (
-    <Container accessibilityLabel="view-login-container">
+    <Container>
       {isLoading && <LoadingOverlay />}
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={styles.header}>
         <Pressable onPress={goBack}>
           <ArrowLeft width={30} height={30} />
         </Pressable>
@@ -101,9 +101,7 @@ const RegisterScreen = () => {
                 value={values.password}
               />
             </View>
-            <View
-              style={{flexDirection: 'row', justifyContent: 'space-evenly'}}
-            >
+            <View style={styles.buttonsContainer}>
               <View style={styles.button}>
                 <Button
                   onPress={() => setValues(admin)}

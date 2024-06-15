@@ -1,23 +1,25 @@
-import theme from '../../theme/base';
+import {StyleSheet} from 'react-native';
+import colors from '../../theme/base/colors.ts';
 
-export const createStyles = () => ({
-  content: {
-    flex: 1,
-    minHeight: 240,
+export default StyleSheet.create({
+  root: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.brandPrimary,
   },
-  button: {
-    marginBottom: theme.spacing.marginVertical,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  subtitle: {
-    textAlign: 'center',
-    fontWeight: '100',
-  },
-  image: {
+  buttonContainer: {
+    borderWidth: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: theme.spacing.marginVertical * 2,
+    width: 250,
+    height: 250,
+    borderRadius: 20,
+    backgroundColor: colors.brandSecondary,
+  },
+  textButton: {
+    fontWeight: 'bold',
+    fontSize: 50,
+    flexWrap: 'wrap',
+    textAlign: 'center',
   },
 });

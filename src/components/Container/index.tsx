@@ -1,3 +1,4 @@
+import React from 'react';
 import {ScrollView} from 'react-native';
 import {createStyles} from './styles';
 import {useThemedStyles} from '../../hooks';

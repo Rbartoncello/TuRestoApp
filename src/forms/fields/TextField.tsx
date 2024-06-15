@@ -3,9 +3,7 @@ import useChange from '../hooks/useChange';
 import getFieldError from '../utils/getFieldError';
 import {createInputStyles} from './styles';
 import {DynamicFieldProps} from '../types.ts';
-import {useThemedStyles} from '../../hooks';
 import {TextInput} from '../../components';
-import colors from '../../theme/base/colors.ts';
 
 const TextField: FC<DynamicFieldProps> = ({
   field,
@@ -16,7 +14,7 @@ const TextField: FC<DynamicFieldProps> = ({
   keyboardType,
   ...props
 }) => {
-  const [styles] = useThemedStyles(createInputStyles);
+  const styles = createInputStyles();
   const handleChange = useChange(form, field, onChange);
   return (
     <TextInput
@@ -37,15 +35,7 @@ const TextField: FC<DynamicFieldProps> = ({
       accessibilityLabel={config.accessibilityLabel}
       numberOfLines={config.numberOfLines}
       value={field.value as string}
-      containerStyle={[
-        {
-          borderWidth: 1,
-          borderColor: colors.brandSecondary,
-          borderRadius: 8,
-          paddingLeft: 4,
-          height: 65,
-        },
-      ]}
+      containerStyle={[styles.container]}
     />
   );
 };

@@ -20,4 +20,12 @@ export const createStyles = () => ({
     alignItems: 'center',
     marginVertical: theme.spacing.marginVertical * 2,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
 });
