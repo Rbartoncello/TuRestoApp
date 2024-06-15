@@ -69,8 +69,7 @@ const RegisterScreen = () => {
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validateOnMount
-        validationSchema={validationSchema}
-      >
+        validationSchema={validationSchema}>
         {({submitForm, setValues, values, dirty, status: state}) => (
           <View style={styles.content}>
             <View style={styles.content}>

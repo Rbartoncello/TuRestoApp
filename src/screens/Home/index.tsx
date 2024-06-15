@@ -21,8 +21,7 @@ const HomeScreen: FC<HomeScreenProps> = () => {
         <View>
           <TouchableOpacity
             onPress={setActive.on}
-            style={styles.buttonContainer}
-          >
+            style={styles.buttonContainer}>
             <Text style={styles.textButton}>Escanear QR</Text>
           </TouchableOpacity>
         </View>

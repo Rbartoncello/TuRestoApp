@@ -55,8 +55,7 @@ const Login: FC<LoginProps> = () => {
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validateOnMount
-        validationSchema={validationSchema}
-      >
+        validationSchema={validationSchema}>
         {({submitForm, dirty, status: state, setFieldValue}) => (
           <View style={styles.container}>
             <View style={styles.content}>
@@ -105,8 +104,7 @@ const Login: FC<LoginProps> = () => {
               icon={<UserListIcon color={colors.white} />}
               openIcon={<UserSwitchIcon color={colors.white} />}
               onOpen={() => setOpen(!open)}
-              onClose={() => setOpen(!open)}
-            >
+              onClose={() => setOpen(!open)}>
               {users.map((user, index) => (
                 <SpeedDial.Action
                   key={index.toString()}

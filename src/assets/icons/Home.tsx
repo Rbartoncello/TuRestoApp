@@ -9,8 +9,7 @@ const HomeIcon = (props: SvgProps) => (
     height={24}
     color="#000000"
     fill="none"
-    {...props}
-  >
+    {...props}>
     <Path
       d="M15.0001 17C14.2006 17.6224 13.1504 18 12.0001 18C10.8499 18 9.79965 17.6224 9.00012 17"
       stroke="currentColor"

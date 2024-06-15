@@ -9,8 +9,7 @@ const MoneyExchangeIcon = (props: SvgProps) => (
     height={24}
     color="#000000"
     fill="none"
-    {...props}
-  >
+    {...props}>
     <Path
       d="M2 10C2 6.68286 4.68286 4 8 4L7.14286 5.71429"
       stroke="currentColor"
