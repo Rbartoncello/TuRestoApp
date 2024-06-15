@@ -4,6 +4,6 @@
   "singleQuote": true,
   "tabWidth": 2,
   "arrowParens": "avoid",
-  "jsxBracketSameLine": true,
-  "bracketSpacing": false
+  "bracketSpacing": false,
+  "jsxBracketSameLine": true
 }
