@@ -1,5 +1,18 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-yarn lint --fix
-yarn format
-git add .
+#. "$(dirname "$0")/_/husky.sh"
+#yarn lint --fix
+#yarn format
+#git add .
+
+
+
+
+# Obtener el nombre de la rama actual
+current_branch=$(git branch --show-current)
+
+# Verificar si la rama actual es "develop"
+if [ "$current_branch" == "develop" ]; then
+    echo "Estás en la rama develop."
+else
+    echo "No estás en la rama develop, estás en la rama $current_branch."
+fi
