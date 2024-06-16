@@ -1,21 +1,23 @@
 #!/bin/sh
-#. "$(dirname "$0")/_/husky.sh"
-#yarn lint --fix
-#yarn format
-#git add .
-
-
-
-
-# Obtener el nombre de la rama actual
+. "$(dirname "$0")/_/husky.sh"
 current_branch=$(git branch --show-current)
+user_name=$(whoami)
+current_date=$(date +"%Y-%m-%d-%H-%M-%S")
 
-# Verificar si la rama actual es "develop"
-if [ "$current_branch" != "develop" ]; then
+# Colores
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+RESET='\033[0m'
+
+if [ "$current_branch" == "develop" ]; then
+    echo -e "${RED}Estás en la rama develop y vas a ser cambiado a ${GREEN}$user_name-$current_date${RESET}"
+    git checkout -b "$user_name-$current_date"
+fi
     yarn lint --fix
     yarn format
     git add .
-else
-    echo "Estás en la rama develop."
-    exit 0
-fi
