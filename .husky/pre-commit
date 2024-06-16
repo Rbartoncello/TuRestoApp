@@ -11,8 +11,11 @@
 current_branch=$(git branch --show-current)
 
 # Verificar si la rama actual es "develop"
-if [ "$current_branch" == "develop" ]; then
-    echo "Estás en la rama develop."
+if [ "$current_branch" != "develop" ]; then
+    yarn lint --fix
+    yarn format
+    git add .
 else
-    echo "No estás en la rama develop, estás en la rama $current_branch."
+    echo "Estás en la rama develop."
+    exit 0
 fi
