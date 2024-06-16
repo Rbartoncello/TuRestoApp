@@ -49,11 +49,11 @@ export const getDefaultStatus = () =>
     error: null,
   }) as Status;
 
-export const getStartStatus = () =>
+export const getStartStatus = (message?: string) =>
   Object.freeze({
     isFetching: true,
     isError: false,
-    errorMessage: null,
+    errorMessage: message,
     error: null,
   }) as Status;
 

@@ -1,6 +1,6 @@
 import {date, DateSchema} from 'yup';
-import {DynamicFormConfig} from '@/forms/types';
-import {parseDate} from '@/forms/utils';
+import parseDate from '../utils/parseDate.ts';
+import {DynamicFormConfig} from '../types.ts';
 
 type CreateDateSchema = (config: DynamicFormConfig) => DateSchema;
 const createDateSchema: CreateDateSchema = ({name, validations = []}) => {

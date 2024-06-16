@@ -1,13 +1,11 @@
 import type {FormikErrors, FormikHelpers} from 'formik';
 import {Field, Formik} from 'formik';
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useRef} from 'react';
 import {View} from 'react-native';
-import {createStyles} from './styles';
 import type {FormValues, LoginProps} from './types';
 import validationSchema from './validationSchema';
 import {Button, Container, LoadingOverlay, Title} from '../../components';
-import {useThemedStyles} from '../../hooks';
 import {ErrorFeedback, PasswordField, TextField} from '../../forms/fields';
 import {useSessionStore} from '../../state/session/slice.ts';
 import {useLogin} from '../../state/session/actions.tsx';
@@ -15,20 +13,32 @@ import {users} from '../../constans/users.ts';
 import {SpeedDial} from '@rneui/themed';
 import {UserIcon, UserListIcon, UserSwitchIcon} from '../../assets/icons';
 import colors from '../../theme/base/colors.ts';
+import styles from './styles.ts';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParams} from '../../navigation/StackNavigation.tsx';
+import Routes from '../../navigation/routes.ts';
 
 const initialValues: FormValues = {username: '', password: ''};
 
 const Login: FC<LoginProps> = () => {
-  const [styles] = useThemedStyles(createStyles);
   const [open, setOpen] = useState(false);
   const {status} = useSessionStore();
   const {login} = useLogin();
+  const {navigate} = useNavigation<NavigationProp<RootStackParams>>();
+
+  useEffect(() => {}, []);
+
   const handleSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) => {
-    actions.resetForm();
+    //actions.resetForm();
     await login(values.username, values.password);
+    actions.setStatus({isSubmitted: true});
+  };
+
+  const handleRegister = () => {
+    navigate(Routes.REGISTER);
   };
 
   const handleAutoComplete = async (
@@ -56,7 +66,7 @@ const Login: FC<LoginProps> = () => {
         initialValues={initialValues}
         validateOnMount
         validationSchema={validationSchema}>
-        {({submitForm, dirty, status: state, setFieldValue}) => (
+        {({submitForm, status: state, setFieldValue}) => (
           <View style={styles.container}>
             <View style={styles.content}>
               <Field
@@ -83,7 +93,7 @@ const Login: FC<LoginProps> = () => {
                 innerRef={passwordRef}
               />
             </View>
-            {!dirty && state?.isSubmitted && status.errorMessage && (
+            {state?.isSubmitted && status.errorMessage && (
               <ErrorFeedback config={{label: status.errorMessage}} />
             )}
 
@@ -91,8 +101,16 @@ const Login: FC<LoginProps> = () => {
               <Button
                 onPress={submitForm}
                 title="Ingresar"
-                accessibilityLabel="btn-login-submit"
                 buttonStyle={styles.button}
+              />
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                type={'outline'}
+                onPress={handleRegister}
+                title="Registrarse"
+                buttonStyle={styles.buttonSignup}
+                titleStyle={styles.titleButton}
               />
             </View>
             <SpeedDial

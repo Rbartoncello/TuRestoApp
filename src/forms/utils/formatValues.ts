@@ -1,4 +1,4 @@
-import formatDateValue from '@/forms/utils/formatDateValue';
+import formatDateValue from './formatDateValue.ts';
 
 /**
  * Formats the values before pass them to the onSubmit handler

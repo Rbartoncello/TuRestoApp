@@ -5,10 +5,12 @@ import HomeScreen from '../screens/Home';
 import {Header} from '../components';
 import {useSessionStore} from '../state/session/slice.ts';
 import Routes from './routes.ts';
+import RegisterScreen from '../screens/Register';
 
 export type RootStackParams = {
   [Routes.LOGIN]: undefined;
   [Routes.HOME]: undefined;
+  [Routes.REGISTER]: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -23,7 +25,16 @@ export const StackNavigation = () => {
     <Stack.Navigator
       initialRouteName={token ? Routes.HOME : Routes.LOGIN}
       screenOptions={options}>
-      <Stack.Screen name={Routes.LOGIN} component={LoginScreen} />
+      <Stack.Screen
+        name={Routes.LOGIN}
+        options={{headerShown: false}}
+        component={LoginScreen}
+      />
+      <Stack.Screen
+        name={Routes.REGISTER}
+        options={{headerShown: false}}
+        component={RegisterScreen}
+      />
       <Stack.Screen name={Routes.HOME} component={HomeScreen} />
     </Stack.Navigator>
   );

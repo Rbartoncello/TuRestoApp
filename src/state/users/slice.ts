@@ -1,11 +1,11 @@
 import {getDefaultStatus, Status} from '../helper/statusStateFactory.ts';
 import {create} from 'zustand';
-import {Client} from '../../interfaces/client.ts';
+import {User} from '../../types';
 
 type State = {
   status: Status;
   token: string;
-  user: Client | undefined;
+  user: User | undefined;
 };
 
 const initialState = {
@@ -16,13 +16,13 @@ const initialState = {
 
 type Action = {
   setToken: (token: string) => void;
-  setUser: (user: Client | undefined) => void;
+  setUser: (user: User | undefined) => void;
   setStatus: (status: Status) => void;
 };
 
 export const useSessionStore = create<State & Action>(set => ({
   ...initialState,
   setToken: (token: string) => set(() => ({token})),
-  setUser: (user: Client | undefined) => set(() => ({user})),
+  setUser: (user: User | undefined) => set(() => ({user})),
   setStatus: (status: Status) => set(() => ({status})),
 }));

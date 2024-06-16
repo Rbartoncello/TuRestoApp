@@ -1,6 +1,6 @@
 import theme from '../../theme/base';
-import colors from '../../theme/base/colors.ts';
 import {StyleSheet} from 'react-native';
+import colors from '../../theme/colors.ts';
 
 export const createTitleStyles = () => ({
   text: {
@@ -31,9 +31,9 @@ export const createInputStyles = () =>
     },
     container: {
       borderWidth: 1,
-      borderColor: colors.brandSecondary,
+      borderColor: colors.gray_100,
       borderRadius: 8,
       paddingLeft: 4,
-      height: 65,
+      marginBottom: 16,
     },
   });
