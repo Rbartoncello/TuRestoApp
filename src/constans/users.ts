@@ -1,39 +1,39 @@
-import {User} from '../types';
+import {ROLES} from '../interfaces/client.ts';
 
-export const users: User[] = [
-  {
+export const users: {
+  id: number;
+  email: string;
+  password: string;
+  rol: ROLES | string;
+}[] = [
+  /*{
     id: 1,
     email: 'admin@admin.com',
-    password: 111111,
+    password: '111111',
     rol: 'admin',
-    sex: 'femenino',
   },
   {
     id: 2,
     email: 'invitado@invitado.com',
-    password: 222222,
+    password: '222222',
     rol: 'bartender',
-    sex: 'femenino',
   },
   {
     id: 3,
     email: 'usuario@usuario.com',
-    password: 333333,
+    password: '333333',
     rol: 'mozo',
-    sex: 'masculino',
-  },
+  },*/
   {
     id: 4,
-    email: 'anonimo@anonimo.com',
-    password: 444444,
-    rol: 'cocinero',
-    sex: 'masculino',
+    email: 'client1@test.com',
+    password: '123456',
+    rol: ROLES.CLIENT,
   },
   {
     id: 5,
-    email: 'tester@tester.com',
-    password: 555555,
-    rol: 'cliente',
-    sex: 'femenino',
+    email: 'client2@test.com',
+    password: '123456',
+    rol: ROLES.CLIENT,
   },
 ];

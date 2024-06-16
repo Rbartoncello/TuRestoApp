@@ -1,11 +1,12 @@
 import type {InputProps} from '@rneui/themed';
 import {Input} from '@rneui/themed';
 import React, {FC, Ref} from 'react';
-import {ReturnKeyTypeOptions, StyleProp, ViewStyle} from 'react-native';
-import createStyles from './styles';
-import {useBoolean, useEvent, useThemedStyles} from '../../hooks';
-import theme from '../../theme/base';
-import UserAccount from '../../assets/icons/UserAccount.tsx';
+import {ReturnKeyTypeOptions, StyleProp, View, ViewStyle} from 'react-native';
+import {useBoolean, useEvent} from '../../hooks';
+import ErrorInputMessage from '../ErrorInputMessage/ErrorInputMessage.tsx';
+import colors from '../../theme/colors.ts';
+import typography from '../../theme/typography.ts';
+import styles from './styles.ts';
 
 interface TextInputProps extends InputProps {
   name?: string;
@@ -33,7 +34,6 @@ const TextInput: FC<TextInputProps> = ({
   ...props
 }) => {
   const [isFocused, setIsFocused] = useBoolean(false);
-  const [styles] = useThemedStyles(createStyles);
   const handleFocus = useEvent(() => {
     setIsFocused.on();
     onFocus?.();
@@ -44,30 +44,32 @@ const TextInput: FC<TextInputProps> = ({
   });
   const inputContainerStyle = [
     containerStyle,
-    errorMessage ? styles.errorInput : undefined,
+    //errorMessage ? styles.errorInput : undefined,
     isFocused ? styles.focusedInput : undefined,
     disabled ? styles.disabled : undefined,
   ];
   return (
-    <Input
-      id={name}
-      accessibilityLabel={accessibilityLabel}
-      autoCapitalize="none"
-      placeholderTextColor={theme.colors.neutral100}
-      onChangeText={onChange}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      labelProps={{numberOfLines: 1}}
-      placeholder={placeholder}
-      labelStyle={styles.label}
-      inputContainerStyle={inputContainerStyle}
-      leftIcon={<UserAccount />}
-      ref={innerRef}
-      disabled={disabled}
-      errorStyle={styles.error}
-      errorMessage={errorMessage}
-      {...props}
-    />
+    <View>
+      <Input
+        id={name}
+        accessibilityLabel={accessibilityLabel}
+        autoCapitalize="none"
+        placeholderTextColor={colors.gray_300}
+        onChangeText={onChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        labelProps={{numberOfLines: 1}}
+        placeholder={placeholder}
+        labelStyle={styles.label}
+        inputContainerStyle={inputContainerStyle}
+        ref={innerRef}
+        disabled={disabled}
+        errorStyle={styles.error}
+        style={{fontFamily: typography.fontFamily.Plus_Jakarta_Sans_400}}
+        {...props}
+      />
+      {errorMessage && <ErrorInputMessage message={errorMessage} />}
+    </View>
   );
 };
 

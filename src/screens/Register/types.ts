@@ -1,6 +1,9 @@
-import {Status} from '@/types';
+import {Status} from '../../types';
 
 export type FormValues = {
+  idNumber?: number;
+  lastname: string;
+  name: string;
   email: string;
   password: string;
 };

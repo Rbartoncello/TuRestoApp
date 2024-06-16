@@ -53,7 +53,7 @@ const Header: FC<HeaderProp> = () => {
           }
           centerComponent={
             <View style={styles.centerComponent}>
-              <Text style={styles.title}>Carga de crédito</Text>
+              <Text style={styles.title}>TuRestoApp</Text>
             </View>
           }
           rightComponent={

@@ -1,6 +1,7 @@
 import theme from '../../theme/base';
+import {StyleSheet} from 'react-native';
 
-const createStyles = () => ({
+export default StyleSheet.create({
   focusedInput: {
     borderColor: theme.colors.brandPrimary,
   },
@@ -14,13 +15,14 @@ const createStyles = () => ({
     backgroundColor: theme.colors.disabled,
   },
   error: {
-    fontWeight: 'bold',
-    color: theme.colors.error,
-    fontSize: theme.typography.large.fontSize,
+    height: 0,
+    margin: 0,
+    padding: 0,
   },
   errorInput: {
     borderColor: theme.colors.error,
+    height: 0,
+    margin: 0,
+    padding: 0,
   },
 });
-
-export default createStyles;

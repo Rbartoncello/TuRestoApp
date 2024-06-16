@@ -1,39 +1,18 @@
 import type {ButtonProps as RNEButtonProps} from '@rneui/base';
-import {Button as BaseButton} from '@rneui/base';
-import {Button as SolidButton, withTheme} from '@rneui/themed';
+import {Button as ButtonRNE} from '@rneui/base';
 import React, {FC} from 'react';
-
-const ClearButton = withTheme(BaseButton, 'ClearButton');
-const OutlineButton = withTheme(BaseButton, 'OutlineButton');
-
-const getButtonComponent = (type: string | undefined) => {
-  switch (type) {
-    case 'clear':
-      return ClearButton;
-    case 'outline':
-      return OutlineButton;
-    default:
-      return SolidButton;
-  }
-};
+import styles from './styles.ts';
 
 interface ButtonProps extends RNEButtonProps {
   title?: string;
   onPress?: () => void;
-  accessibilityLabel?: string;
 }
 
-const Button: FC<ButtonProps> = ({
-  accessibilityLabel,
-  type,
-  title,
-  onPress,
-  ...props
-}) => {
-  const Component = getButtonComponent(type);
+const Button: FC<ButtonProps> = ({title, onPress, ...props}) => {
   return (
-    <Component
-      accessibilityLabel={accessibilityLabel}
+    <ButtonRNE
+      buttonStyle={styles.buttonSolid}
+      titleStyle={styles.title}
       title={title}
       onPress={onPress}
       {...props}

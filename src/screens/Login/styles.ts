@@ -1,7 +1,8 @@
 import theme from '../../theme/base';
 import colors from '../../theme/base/colors.ts';
+import {StyleSheet} from 'react-native';
 
-export const createStyles = () => ({
+export default StyleSheet.create({
   container: {
     flex: 1,
     minHeight: 240,
@@ -38,6 +39,15 @@ export const createStyles = () => ({
     backgroundColor: colors.brandPrimary,
     height: 60,
   },
+  buttonSignup: {
+    borderRadius: 10,
+    borderColor: colors.white,
+    borderWidth: 2,
+    height: 60,
+  },
+  titleButton: {
+    color: 'white',
+  },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -47,6 +57,8 @@ export const createStyles = () => ({
   },
   title: {
     textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 40,
   },
   subtitle: {
     textAlign: 'center',

@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle} from 'react-native';
 import {createStyles} from './styles';
 import {FCC} from '../../types';
 import Text from '../Text';
 import {useThemedStyles} from '../../hooks';
 
 type TitleProps = {
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
 };
 
 const Title: FCC<TitleProps> = ({style, ...props}) => {
