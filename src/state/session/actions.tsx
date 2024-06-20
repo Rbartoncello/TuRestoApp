@@ -52,7 +52,7 @@ export const useLogin = () => {
       });
 
       setToken(response.user?.accessToken);
-      navigate(Routes.HOME);
+      navigate(Routes.MENU_LIST);
       setStatus(getSuccessStatus());
     } catch (error) {
       setStatus(getErrorStatus(error?.message));
