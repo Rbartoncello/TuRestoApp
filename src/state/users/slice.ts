@@ -1,6 +1,6 @@
 import {getDefaultStatus, Status} from '../helper/statusStateFactory.ts';
 import {create} from 'zustand';
-import {User} from '../../types';
+import {User} from './interfaces.ts';
 
 type State = {
   status: Status;

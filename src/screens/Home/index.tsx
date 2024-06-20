@@ -9,10 +9,8 @@ import styles from './styles.ts';
 const HomeScreen: FC<HomeScreenProps> = () => {
   const [active, setActive] = useBoolean(false);
 
-  const handleScanQR = (qrData?: string) => {
+  const handleScanQR = () => {
     setActive.off();
-
-    console.log(qrData);
   };
 
   return (
@@ -27,10 +25,11 @@ const HomeScreen: FC<HomeScreenProps> = () => {
         </View>
       ) : (
         <QRScanner
-          onRead={e => handleScanQR(e.data)}
+          onRead={() => handleScanQR()}
           reactivate={true}
           reactivateTimeout={500}
           showMarker={true}
+          active={active}
         />
       )}
     </Container>
