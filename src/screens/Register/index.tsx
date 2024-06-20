@@ -48,11 +48,8 @@ const RegisterScreen = () => {
 
     await launchImageLibrary(options, response => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
       } else if (response.errorCode) {
-        console.log('ImagePicker Error: ', response.errorCode);
       } else if (response.assets && response.assets.length > 0) {
-        console.log(response.assets[0]);
         setImageUri({uri: response.assets[0].uri});
       }
     });
@@ -62,7 +59,6 @@ const RegisterScreen = () => {
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) => {
-    console.log({values});
     await signUp(
       values.idNumber,
       values.lastname,

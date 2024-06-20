@@ -29,15 +29,12 @@ export const useUsersActions = () => {
       const docRef = doc(FIREBASE_DB, 'clients', id);
       const docSnap = await getDoc(docRef);
 
-      console.log('dd', docSnap.exists());
-
       if (!docSnap.exists()) {
         return {};
       }
 
       const data = docSnap.data();
 
-      console.log('dd', data);
       if (data && typeof data === 'object') {
         return data as Client;
       }

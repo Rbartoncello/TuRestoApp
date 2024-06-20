@@ -172,37 +172,6 @@ export type ReferenceSurveyVariety = {
   comment?: string;
 };
 
-export type Survey = {
-  id: number;
-  userId: number;
-  version: string;
-  panelId: number;
-  entityId: number;
-  complete: boolean;
-  data: {
-    [key: string | number]: {
-      [key: string | number]: {
-        [key: string | number]: {
-          type: string;
-          price: string | number;
-          bonus: string | number;
-          complete: boolean;
-          [key: string | number]: string | number | boolean;
-        };
-      };
-    };
-  };
-  locations: Location[];
-};
-
-export type Location = {
-  data: {id: number | string};
-  entity: string;
-  lat: string;
-  lng: string;
-  date: string;
-};
-
 export type User = {
   id: string | number;
   email: string;

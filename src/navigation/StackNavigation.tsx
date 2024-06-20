@@ -3,14 +3,17 @@ import LoginScreen from '../screens/Login';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/Home';
 import {Header} from '../components';
-import {useSessionStore} from '../state/session/slice.ts';
 import Routes from './routes.ts';
 import RegisterScreen from '../screens/Register';
+import MenuListScreen from '../screens/MenuList';
+import ProductDetailScreen from '../screens/ProductDetals';
 
 export type RootStackParams = {
   [Routes.LOGIN]: undefined;
   [Routes.HOME]: undefined;
   [Routes.REGISTER]: undefined;
+  [Routes.MENU_LIST]: undefined;
+  [Routes.PRODUCT_DETAILS]: {id: number};
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -20,11 +23,8 @@ const options = {
 };
 
 export const StackNavigation = () => {
-  const {token} = useSessionStore();
   return (
-    <Stack.Navigator
-      initialRouteName={token ? Routes.HOME : Routes.LOGIN}
-      screenOptions={options}>
+    <Stack.Navigator initialRouteName={Routes.LOGIN} screenOptions={options}>
       <Stack.Screen
         name={Routes.LOGIN}
         options={{headerShown: false}}
@@ -36,6 +36,11 @@ export const StackNavigation = () => {
         component={RegisterScreen}
       />
       <Stack.Screen name={Routes.HOME} component={HomeScreen} />
+      <Stack.Screen name={Routes.MENU_LIST} component={MenuListScreen} />
+      <Stack.Screen
+        name={Routes.PRODUCT_DETAILS}
+        component={ProductDetailScreen}
+      />
     </Stack.Navigator>
   );
 };
