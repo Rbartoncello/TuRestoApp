@@ -19,23 +19,24 @@
 - **Fecha de finalización de la tarea:** 16/06/2024
 - **Branch:** Crear-un-cliente-nuevo
 
-### 3. Apellido, Nombre
+### 3. Bartoncello, Ricardo
 
-- **Módulos (objetivos) a desarrollar:**
+- **Visualizacion de menu:**
+  -  Como cliente,
+  -  Quiero ver el menú,
+  -  Para tener una experiencia completa y satisfactoria en el restaurante.
+- **Fecha de inicio de la tarea:** 17/06/2024
+- **Fecha de finalización de la tarea:** 17/06/2024
+- **Branch:** ver-menu
+
+### 4. Bartoncello, Ricardo
+
+- **Detalle del producto:**
   - Módulo 1: Descripción breve del objetivo
   - Módulo 2: Descripción breve del objetivo
-- **Fecha de inicio de la tarea:** DD/MM/2024
-- **Fecha de finalización de la tarea:** DD/MM/2024
-- **Branch:** nombre-del-branch
-
-### 4. Apellido, Nombre
-
-- **Módulos (objetivos) a desarrollar:**
-  - Módulo 1: Descripción breve del objetivo
-  - Módulo 2: Descripción breve del objetivo
-- **Fecha de inicio de la tarea:** DD/MM/2024
-- **Fecha de finalización de la tarea:** DD/MM/2024
-- **Branch:** nombre-del-branch
+- **Fecha de inicio de la tarea:** 17/06/2024
+- **Fecha de finalización de la tarea:** 17/06/2024
+- **Branch:** detalle-producto
 
 ### 5. Apellido, Nombre
 
