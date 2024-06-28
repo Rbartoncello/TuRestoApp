@@ -23,9 +23,7 @@ export const useOrdersActions = () => {
     console.log(newOrder);
 
     try {
-      await setDoc(doc(FIREBASE_DB, 'orders', `${newOrder.id}`), {
-        newOrder,
-      });
+      await setDoc(doc(FIREBASE_DB, 'orders', `${newOrder.id}`), newOrder);
       setStatus(getSuccessStatus());
     } catch (error) {
       setStatus(getErrorStatus());
