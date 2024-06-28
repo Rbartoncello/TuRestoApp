@@ -1,10 +1,9 @@
-import React, {FC} from 'react';
-import {IconProps} from '../../types';
-import {useThemedStyles} from '../../hooks';
-import {createStyles} from './styles.tsx';
+import React, {FC, PropsWithChildren} from 'react';
+import styles from './styles.tsx';
 import {Button, Container, Dialog} from '../index.ts';
+import {View} from 'react-native';
 
-interface ModalProps extends IconProps {
+interface ModalProps extends PropsWithChildren {
   id?: string;
   accessibilityLabel?: string;
   title?: string;
@@ -22,9 +21,8 @@ const Modal: FC<ModalProps> = ({
   active,
   setActive,
   onConfirm,
+  children,
 }) => {
-  const [styles] = useThemedStyles(createStyles);
-
   return (
     <Dialog
       id={id}
@@ -36,13 +34,16 @@ const Modal: FC<ModalProps> = ({
       style={styles.modal}
       styleMessage={styles.message}>
       <Container style={styles.container}>
-        <Button
-          accessibilityLabel="btn-confirm"
-          onPress={onConfirm}
-          buttonStyle={styles.confirm}
-          containerStyle={styles.containerConfirm}>
-          Aceptar
-        </Button>
+        <View>
+          {children}
+          <Button
+            accessibilityLabel="btn-confirm"
+            onPress={onConfirm}
+            buttonStyle={styles.confirm}
+            containerStyle={styles.containerConfirm}>
+            Aceptar
+          </Button>
+        </View>
       </Container>
     </Dialog>
   );
