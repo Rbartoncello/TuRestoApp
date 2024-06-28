@@ -41,7 +41,7 @@
 - **Crear pedido y guardar en db:**
 - **Fecha de inicio de la tarea:** 28/06/2024
 - **Fecha de finalización de la tarea:** 28/06/2024
-- **Branch:** nombre-del-branch
+- **Branch:** rbartoncello-2024-06-28-19-28-55
 
 ## Notas adicionales
 
