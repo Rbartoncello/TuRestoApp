@@ -34,6 +34,7 @@ const Login: FC<LoginProps> = () => {
   ) => {
     //actions.resetForm();
     await login(values.username, values.password);
+
     actions.setStatus({isSubmitted: true});
   };
 

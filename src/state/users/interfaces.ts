@@ -18,6 +18,7 @@ export enum ROLES {
   CLIENT = 'cliente',
   OWNER = 'dueño',
   COOKER = 'cocinero',
+  MAITRE = 'maitre',
 }
 
 export interface Client extends User {

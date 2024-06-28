@@ -52,7 +52,8 @@ export const useLogin = () => {
       });
 
       setToken(response.user?.accessToken);
-      navigate(Routes.MENU_LIST);
+      setUser(user as Client);
+      navigate(Routes.SELECTION);
       setStatus(getSuccessStatus());
     } catch (error) {
       setStatus(getErrorStatus(error?.message));

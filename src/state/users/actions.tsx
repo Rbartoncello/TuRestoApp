@@ -8,6 +8,7 @@ export const useUsersActions = () => {
     lastname: string,
     name: string,
     email: string,
+    rol: ROLES,
   ) => {
     try {
       await setDoc(doc(FIREBASE_DB, 'clients', `${email}`), {
@@ -16,6 +17,7 @@ export const useUsersActions = () => {
         lastname,
         name,
         email,
+        rol,
         isUnknown: false,
         state: CLIENT_STATES.PENDING_APPROVAL,
       });
