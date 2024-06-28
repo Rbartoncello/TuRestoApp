@@ -22,9 +22,9 @@
 ### 3. Bartoncello, Ricardo
 
 - **Visualizacion de menu:**
-  -  Como cliente,
-  -  Quiero ver el menú,
-  -  Para tener una experiencia completa y satisfactoria en el restaurante.
+  - Como cliente,
+  - Quiero ver el menú,
+  - Para tener una experiencia completa y satisfactoria en el restaurante.
 - **Fecha de inicio de la tarea:** 17/06/2024
 - **Fecha de finalización de la tarea:** 17/06/2024
 - **Branch:** ver-menu
@@ -32,19 +32,15 @@
 ### 4. Bartoncello, Ricardo
 
 - **Detalle del producto:**
-  - Módulo 1: Descripción breve del objetivo
-  - Módulo 2: Descripción breve del objetivo
 - **Fecha de inicio de la tarea:** 17/06/2024
 - **Fecha de finalización de la tarea:** 17/06/2024
 - **Branch:** detalle-producto
 
-### 5. Apellido, Nombre
+### 5. Bartoncello, Ricardo
 
-- **Módulos (objetivos) a desarrollar:**
-  - Módulo 1: Descripción breve del objetivo
-  - Módulo 2: Descripción breve del objetivo
-- **Fecha de inicio de la tarea:** DD/MM/2024
-- **Fecha de finalización de la tarea:** DD/MM/2024
+- **Crear pedido y guardar en db:**
+- **Fecha de inicio de la tarea:** 28/06/2024
+- **Fecha de finalización de la tarea:** 28/06/2024
 - **Branch:** nombre-del-branch
 
 ## Notas adicionales

@@ -120,7 +120,7 @@ const RegisterScreen = () => {
               <TouchableOpacity onPress={setActive.on} style={styles.qrButton}>
                 <QRIcon width={100} height={100} />
               </TouchableOpacity>
-              <Text style={styles.text}>O completa: </Text>
+              <Text style={styles.text}>O completá: </Text>
             </View>
             <View style={styles.formContent}>
               <View>
@@ -195,7 +195,9 @@ const RegisterScreen = () => {
                 name="email"
                 config={{
                   placeholder: 'ejemplo@gmail.com',
-                  label: <LabelInput label={'Email'} required={true} />,
+                  label: (
+                    <LabelInput label={'Correo electronico'} required={true} />
+                  ),
                   returnKeyType: 'next',
                   keyboardType: 'email-address',
                 }}
