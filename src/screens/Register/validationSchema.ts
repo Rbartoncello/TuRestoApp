@@ -18,6 +18,10 @@ const validationSchema = object({
     .min(6, MIN_DIGITS_ALLOWED_PASSWORD_MESSAGE)
     .max(20, MIN_DIGITS_ALLOWED_PASSWORD_MESSAGE)
     .required(REQUIRED_MESSAGE),
+  passwordConfirm: string()
+    .min(6, MIN_DIGITS_ALLOWED_PASSWORD_MESSAGE)
+    .max(20, MIN_DIGITS_ALLOWED_PASSWORD_MESSAGE)
+    .required(REQUIRED_MESSAGE),
 });
 
 export default validationSchema;

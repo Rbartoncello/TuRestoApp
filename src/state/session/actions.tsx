@@ -21,6 +21,8 @@ import {useUsersActions} from '../users/actions.tsx';
 import {INCORRECT_USERNAME_PASSWORD_MESSAGE} from '../../constans/messages.ts';
 import {ref, uploadBytes} from 'firebase/storage';
 import {CLIENT_STATES, ROLES, User} from '../users/interfaces.ts';
+import {OneSignal} from 'react-native-onesignal';
+import {sendNotification} from '../../services/Notifiaction';
 import UserCredential = firebase.auth.UserCredential;
 
 const auth = FIREBASE_AUTH;
@@ -53,6 +55,7 @@ export const useLogin = () => {
 
       setToken(response.user?.accessToken);
       setUser(user);
+      OneSignal.login(user.rol);
       navigate(user.rol !== ROLES.CLIENT ? Routes.SELECTION : Routes.MENU_LIST);
       setStatus(getSuccessStatus());
     } catch (error) {
@@ -86,6 +89,7 @@ export const useLogin = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       await saveNewUser(dni, lastname, name, email, ROLES.CLIENT);
       await uploadImage(image, `clients/${email}`);
+      await sendNotification(ROLES.OWNER, 'Se a reguistrado un nuevo cliente');
       setStatus(getSuccessStatus());
       navigate(Routes.LOGIN);
     } catch (e) {
