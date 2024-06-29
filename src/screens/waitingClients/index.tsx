@@ -1,32 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, FlatList, Text, View} from 'react-native';
-import {FIREBASE_DB} from '../../services/firebase/FirebaseConfig';
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import {Client} from '../../interfaces/client';
-import {Table, TABLE_STATES} from '../../interfaces/table';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {ListItem} from '@rneui/themed';
-import {UserIcon} from '../../assets/icons';
 import colors from '../../theme/colors.ts';
 import {useUsersActions} from '../../state/users/actions.tsx';
 import {useUsersStore} from '../../state/users/slice.ts';
-import {CLIENT_STATES, ROLES} from '../../state/users/interfaces.ts';
+import {CLIENT_STATES, Client, ROLES} from '../../state/users/interfaces.ts';
+import {Container, LoadingOverlay, Title} from '../../components';
+import {useTablesActions} from '../../state/tables/actions.tsx';
+import {useTablesStore} from '../../state/tables/slice.ts';
+import {Table, TABLE_STATES} from '../../state/tables/interfaces.ts';
 
 const WaitingClientsScreen = () => {
   const [waitingClients, setWaitingClients] = useState<Client[]>([]);
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
   const [expanded, setExpanded] = useState<string | null>(null);
-  const {getUsers} = useUsersActions();
-  const {users} = useUsersStore();
+  const {getUsers, uploadUser} = useUsersActions();
+  const {getTables, uploadTable} = useTablesActions();
+  const {users, status: userStatus} = useUsersStore();
+  const {tables, status: tableStatus} = useTablesStore();
 
   useEffect(() => {
     getUsers();
+    getTables();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -34,39 +29,27 @@ const WaitingClientsScreen = () => {
     setWaitingClients(
       users.filter(
         u => u.rol === ROLES.CLIENT && u.state === CLIENT_STATES.ACCEPTED,
-      ),
+      ) as Client[],
     );
   }, [users]);
 
   useEffect(() => {
-    const fetchAvailableTables = async () => {
-      const tableRef = collection(FIREBASE_DB, 'tables');
-      const queryFirebase = query(
-        tableRef,
-        where('state', '==', TABLE_STATES.EMPTY),
-      );
-      const queryResult = await getDocs(queryFirebase);
-      const tableList = queryResult.docs.map(
-        doc => ({id: doc.id, ...doc.data()} as Table),
-      );
-      setAvailableTables(tableList);
-    };
-    fetchAvailableTables();
-  }, []);
+    setAvailableTables(
+      tables.filter(table => table.state === TABLE_STATES.EMPTY) as Table[],
+    );
+  }, [tables]);
 
-  const handleAssign = async (clientId: string, tableId: string) => {
-    const clientRef = doc(FIREBASE_DB, 'clients', clientId);
-    const tableRef = doc(FIREBASE_DB, 'tables', tableId);
-
-    await updateDoc(clientRef, {state: CLIENT_STATES.SITTING});
-    await updateDoc(tableRef, {
-      state: TABLE_STATES.CUSTOMER_WAITING_ATTENTION,
-      clientId: clientId,
+  const handleAssign = async (client: Client, tableId: string) => {
+    await uploadUser({
+      ...client,
+      state: CLIENT_STATES.SITTING,
+      idTable: tableId,
     });
-
-    setWaitingClients(waitingClients.filter(client => client.id !== clientId));
-    setAvailableTables(availableTables.filter(table => table.id !== tableId));
-    Alert.alert('Cliente asignado en mesa');
+    await uploadTable({
+      id: tableId,
+      state: TABLE_STATES.CUSTOMER_WAITING_ATTENTION,
+      clientId: client.email,
+    });
   };
 
   const renderClientItem = ({item}: {item: Client}) => (
@@ -75,20 +58,47 @@ const WaitingClientsScreen = () => {
       isExpanded={expanded === item.id}
       onPress={() => setExpanded(expanded === item.id ? null : item.id)}
       content={
-        <>
-          <UserIcon color={colors.black} />
-          <ListItem.Title>{item.name}</ListItem.Title>
-        </>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '100%',
+            elevation: 2,
+            backgroundColor: colors.gray_100,
+            padding: 5,
+          }}>
+          <Text style={{color: colors.gray_500}}>{item.lastname}</Text>
+          <Text style={{color: colors.gray_500}}>{item.name}</Text>
+        </View>
       }>
-      <ListItem.Content>
+      <ListItem.Content
+        style={{
+          alignItems: 'center',
+          alignSelf: 'center',
+          justifyContent: 'center',
+          backgroundColor: colors.grayBackground,
+          width: '70%',
+          borderBottomEndRadius: 15,
+          borderBottomStartRadius: 15,
+          top: -15,
+        }}>
         {availableTables.map(table => (
-          <ListItem key={table.id} bottomDivider>
-            <ListItem.Title>{`Mesa ${table.id}`}</ListItem.Title>
-
-            <Button
-              title="Asignar"
-              onPress={() => handleAssign(item.email, table.id)}
-            />
+          <ListItem
+            key={table.id}
+            bottomDivider
+            containerStyle={{
+              backgroundColor: colors.grayBackground,
+            }}
+            style={{
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity onPress={() => handleAssign(item, table.id)}>
+              <ListItem.Title
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                }}>{`Mesa ${table.id}`}</ListItem.Title>
+            </TouchableOpacity>
           </ListItem>
         ))}
       </ListItem.Content>
@@ -96,17 +106,44 @@ const WaitingClientsScreen = () => {
   );
 
   return (
-    <View
-      style={{flex: 1, padding: 20, backgroundColor: colors.grayBackground}}>
-      <Text style={{fontSize: 20, marginBotton: 10, color: colors.black}}>
-        Clientes esperando asignacion:{' '}
-      </Text>
+    <Container style={{backgroundColor: colors.grayBackground}}>
+      {(userStatus.isFetching || tableStatus.isFetching) && <LoadingOverlay />}
+      <Title style={{fontSize: 20, textAlign: 'center'}}>
+        Clientes esperando asignacion:
+      </Title>
       <FlatList
         data={waitingClients}
         renderItem={renderClientItem}
-        keyExtractor={item => item.id}
+        ListHeaderComponent={
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              backgroundColor: colors.white2,
+              padding: 5,
+              borderRadius: 10,
+              elevation: 5,
+            }}>
+            <Text
+              style={{color: colors.black, fontSize: 16, fontWeight: 'bold'}}>
+              Apellido
+            </Text>
+            <Text
+              style={{color: colors.black, fontSize: 16, fontWeight: 'bold'}}>
+              Nombre
+            </Text>
+          </View>
+        }
+        style={{
+          backgroundColor: colors.white,
+          elevation: 8,
+          padding: 15,
+          borderRadius: 25,
+          gap: 20,
+        }}
+        keyExtractor={item => item.id.toString()}
       />
-    </View>
+    </Container>
   );
 };
 
