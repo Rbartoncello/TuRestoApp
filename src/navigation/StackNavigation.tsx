@@ -7,6 +7,11 @@ import Routes from './routes.ts';
 import RegisterScreen from '../screens/Register';
 import MenuListScreen from '../screens/MenuList';
 import ProductDetailScreen from '../screens/ProductDetals';
+import PendingClientsScreen from '../screens/PendingClientsScreen';
+import SelectionScreen from '../screens/Selection';
+import PendingOrdersScreen from '../screens/PendingOrders';
+import WaitingClientsScreen from '../screens/waitingClients';
+import ReleaseTableScreen from '../screens/ReleaseTable';
 
 export type RootStackParams = {
   [Routes.LOGIN]: undefined;
@@ -14,6 +19,11 @@ export type RootStackParams = {
   [Routes.REGISTER]: undefined;
   [Routes.MENU_LIST]: undefined;
   [Routes.PRODUCT_DETAILS]: {id: number};
+  [Routes.CLIENT_PENDINGS]: undefined;
+  [Routes.SELECTION]: undefined;
+  [Routes.ORDERS]: undefined;
+  [Routes.ASSIGMENT]: undefined;
+  [Routes.TABLES]: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -41,6 +51,14 @@ export const StackNavigation = () => {
         name={Routes.PRODUCT_DETAILS}
         component={ProductDetailScreen}
       />
+      <Stack.Screen
+        name={Routes.CLIENT_PENDINGS}
+        component={PendingClientsScreen}
+      />
+      <Stack.Screen name={Routes.SELECTION} component={SelectionScreen} />
+      <Stack.Screen name={Routes.ORDERS} component={PendingOrdersScreen} />
+      <Stack.Screen name={Routes.ASSIGMENT} component={WaitingClientsScreen} />
+      <Stack.Screen name={Routes.TABLES} component={ReleaseTableScreen} />
     </Stack.Navigator>
   );
 };

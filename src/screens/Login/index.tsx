@@ -17,6 +17,7 @@ import styles from './styles.ts';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/StackNavigation.tsx';
 import Routes from '../../navigation/routes.ts';
+import {useProductsActions} from '../../state/products/actions.tsx';
 
 const initialValues: FormValues = {username: '', password: ''};
 
@@ -25,15 +26,19 @@ const Login: FC<LoginProps> = () => {
   const {status} = useSessionStore();
   const {login} = useLogin();
   const {navigate} = useNavigation<NavigationProp<RootStackParams>>();
+  const {getProducts} = useProductsActions();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSubmit = async (
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) => {
-    //actions.resetForm();
     await login(values.username, values.password);
+    actions.resetForm();
     actions.setStatus({isSubmitted: true});
   };
 

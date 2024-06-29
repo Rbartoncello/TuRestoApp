@@ -6,7 +6,6 @@ import styles from './styles.ts';
 import Routes from '../../navigation/routes.ts';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/StackNavigation.tsx';
-import {useProductsActions} from '../../state/products/actions.tsx';
 import {useProductsStore} from '../../state/products/slice.ts';
 import {Divider} from '@rneui/base';
 import {useOrdersStore} from '../../state/orders/slice.ts';
@@ -17,7 +16,6 @@ import {useOrdersActions} from '../../state/orders/actions.tsx';
 
 const MenuListScreen: FC<MenuScreenProps> = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParams>>();
-  const {getProducts} = useProductsActions();
   const {products, status} = useProductsStore();
   const {
     products: ProductsSelected,
@@ -30,10 +28,6 @@ const MenuListScreen: FC<MenuScreenProps> = () => {
   const [open, setOpen] = useBoolean(false);
   const [open2, setOpen2] = useBoolean(false);
 
-  useEffect(() => {
-    getProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   useEffect(() => {
     const productsFilter = products.filter(p =>
       ProductsSelected.some(ps => ps.id === p.id.toString()),
