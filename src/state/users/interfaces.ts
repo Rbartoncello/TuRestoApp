@@ -10,15 +10,17 @@ export interface User {
 
 export enum CLIENT_STATES {
   PENDING_APPROVAL = 'Pendiente a aprobacion',
-  REFUSED = 'Rechadado',
+  REFUSED = 'Rechazado',
   ACCEPTED = 'Aprobado',
+  SITTING = 'Sentado en la mesa',
+  PAID = 'Cobrado',
 }
 
 export enum ROLES {
-  CLIENT = 'cliente',
-  OWNER = 'dueño',
-  COOKER = 'cocinero',
-  MAITRE = 'maitre',
+  CLIENT = 'Cliente',
+  OWNER = 'Dueño',
+  MAITRE = 'Maitre',
+  WAITER = 'Mozo',
 }
 
 export interface Client extends User {

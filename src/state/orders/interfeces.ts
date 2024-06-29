@@ -1,12 +1,12 @@
 export interface Order {
   id: number;
   products: {id: string; count: number}[];
-  state: ORDER_STATUS;
+  state: STATUS_ORDER;
   totalPrice: number;
   totalTime: string;
 }
 
-export const enum ORDER_STATUS {
+export const enum STATUS_ORDER {
   PENDENT = 'Pendiente',
   CONFIRM = 'Confirmado',
 }

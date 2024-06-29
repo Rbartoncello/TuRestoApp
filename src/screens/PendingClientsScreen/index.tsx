@@ -9,7 +9,8 @@ import {
   updateDoc,
   doc,
 } from 'firebase/firestore';
-import {Client, CLIENT_STATES} from '../../interfaces/client';
+import {CLIENT_STATES, Client} from '../../state/users/interfaces.ts';
+import colors from '../../theme/colors.ts';
 
 const PendingClientsScreen = () => {
   const [pendingClients, setPendingClients] = useState<Client[]>([]);
@@ -54,7 +55,7 @@ const PendingClientsScreen = () => {
   );
 
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: colors.grayBackground}}>
       <FlatList
         data={pendingClients}
         renderItem={renderItem}

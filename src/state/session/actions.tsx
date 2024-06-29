@@ -18,10 +18,10 @@ import Routes from '../../navigation/routes.ts';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/StackNavigation.tsx';
 import {useUsersActions} from '../users/actions.tsx';
-import {CLIENT_STATES} from '../../interfaces/client.ts';
-import UserCredential = firebase.auth.UserCredential;
 import {INCORRECT_USERNAME_PASSWORD_MESSAGE} from '../../constans/messages.ts';
 import {ref, uploadBytes} from 'firebase/storage';
+import {CLIENT_STATES, ROLES, User} from '../users/interfaces.ts';
+import UserCredential = firebase.auth.UserCredential;
 
 const auth = FIREBASE_AUTH;
 
@@ -33,9 +33,9 @@ export const useLogin = () => {
   const login = async (email: string, password: string) => {
     setStatus(getStartStatus());
     try {
-      const user = await getClient(email);
+      const user = (await getClient(email)) as User;
 
-      if (user && user?.email === email) {
+      if (user && user?.email === email && user.rol === ROLES.CLIENT) {
         if (user?.state === CLIENT_STATES.PENDING_APPROVAL) {
           throw {message: 'Cliente pendiente a aprobacion'};
         } else if (user?.state === CLIENT_STATES.REFUSED) {
@@ -52,8 +52,8 @@ export const useLogin = () => {
       });
 
       setToken(response.user?.accessToken);
-      setUser(user as Client);
-      navigate(Routes.SELECTION);
+      setUser(user);
+      navigate(user.rol !== ROLES.CLIENT ? Routes.SELECTION : Routes.MENU_LIST);
       setStatus(getSuccessStatus());
     } catch (error) {
       setStatus(getErrorStatus(error?.message));
@@ -84,12 +84,12 @@ export const useLogin = () => {
     setStatus(getStartStatus());
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await saveNewUser(dni, lastname, name, email);
+      await saveNewUser(dni, lastname, name, email, ROLES.CLIENT);
       await uploadImage(image, `clients/${email}`);
       setStatus(getSuccessStatus());
       navigate(Routes.LOGIN);
     } catch (e) {
-      setStatus(getErrorStatus());
+      setStatus(getErrorStatus(e));
     }
   };
 

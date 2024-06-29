@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Button, StyleSheet} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import {useSessionStore} from '../../state/session/slice.ts';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/StackNavigation.tsx';
 import Routes from '../../navigation/routes.ts';
+import {ROLES} from '../../state/users/interfaces.ts';
 
 const SelectionScreen = () => {
   const {user} = useSessionStore();
@@ -32,14 +33,16 @@ const SelectionScreen = () => {
   return (
     <View style={styles.container}>
       <Button title="Escanear QR" onPress={handleScanQR} />
-      {user?.rol === 'dueño' && (
+      {user?.rol === ROLES.OWNER && (
         <Button title="Lista de Clientes" onPress={handleClientList} />
       )}
-      {user?.rol === 'mozo' && (
+      {user?.rol === ROLES.WAITER && (
         <Button title="Pedidos pendientes" onPress={handlePendingOrders} />
       )}
-      {user?.rol === 'mozo' && <Button title="Mesas" onPress={handleTables} />}
-      {user?.rol === 'maitre' && (
+      {user?.rol === ROLES.WAITER && (
+        <Button title="Mesas" onPress={handleTables} />
+      )}
+      {user?.rol === ROLES.MAITRE && (
         <Button title="Clientes en espera" onPress={handlePendingClients} />
       )}
     </View>
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 25,
   },
 });
 

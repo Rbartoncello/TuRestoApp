@@ -1,6 +1,6 @@
 import {useOrdersStore} from './slice.ts';
-import {Order, ORDER_STATUS} from './interfeces.ts';
-import {doc, setDoc} from 'firebase/firestore';
+import {Order, STATUS_ORDER} from './interfeces.ts';
+import {collection, doc, getDocs, setDoc, updateDoc} from 'firebase/firestore';
 import {FIREBASE_DB} from '../../services/firebase/FirebaseConfig.ts';
 import {
   getErrorStatus,
@@ -9,7 +9,8 @@ import {
 } from '../helper/statusStateFactory.ts';
 
 export const useOrdersActions = () => {
-  const {products, setProducts, setStatus} = useOrdersStore();
+  const {products, setProducts, setStatus, setOrders, orders} =
+    useOrdersStore();
   const createOrder = async (total: number, time: string) => {
     setStatus(getStartStatus());
     const newOrder: Order = {
@@ -17,10 +18,8 @@ export const useOrdersActions = () => {
       products: products,
       totalPrice: total,
       totalTime: time,
-      state: ORDER_STATUS.PENDENT,
+      state: STATUS_ORDER.PENDENT,
     };
-
-    console.log(newOrder);
 
     try {
       await setDoc(doc(FIREBASE_DB, 'orders', `${newOrder.id}`), newOrder);
@@ -44,5 +43,41 @@ export const useOrdersActions = () => {
     );
   };
 
-  return {createOrder, addProductToOrder};
+  const fetchOrders = async () => {
+    setStatus(getStartStatus());
+    try {
+      const query = await getDocs(collection(FIREBASE_DB, 'orders'));
+      const ordersData = query.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Order[];
+      setOrders(ordersData);
+      setStatus(getSuccessStatus());
+    } catch (e) {
+      setStatus(getErrorStatus());
+    }
+  };
+
+  const confirmOrder = async (id: number) => {
+    setStatus(getStartStatus());
+    try {
+      const orderRef = doc(FIREBASE_DB, 'orders', id.toString());
+      await updateDoc(orderRef, {
+        state: STATUS_ORDER.CONFIRM,
+      });
+      setOrders(
+        orders.map(o => {
+          if (o.id.toString() === id.toString()) {
+            return {...o, state: STATUS_ORDER.CONFIRM};
+          }
+          return o;
+        }),
+      );
+      setStatus(getSuccessStatus());
+    } catch (e) {
+      setStatus(getErrorStatus());
+    }
+  };
+
+  return {createOrder, addProductToOrder, confirmOrder, fetchOrders};
 };

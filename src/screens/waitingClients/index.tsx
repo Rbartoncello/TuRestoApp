@@ -1,38 +1,44 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Button, FlatList, Alert} from 'react-native';
+import {Alert, Button, FlatList, Text, View} from 'react-native';
 import {FIREBASE_DB} from '../../services/firebase/FirebaseConfig';
 import {
   collection,
-  query,
-  where,
-  getDocs,
-  updateDoc,
   doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
-import {Client, CLIENT_STATES} from '../../interfaces/client';
+import {Client} from '../../interfaces/client';
 import {Table, TABLE_STATES} from '../../interfaces/table';
 import {ListItem} from '@rneui/themed';
 import {UserIcon} from '../../assets/icons';
-import colors from '../../theme/base/colors.ts';
+import colors from '../../theme/colors.ts';
+import {useUsersActions} from '../../state/users/actions.tsx';
+import {useUsersStore} from '../../state/users/slice.ts';
+import {CLIENT_STATES, ROLES} from '../../state/users/interfaces.ts';
 
 const WaitingClientsScreen = () => {
   const [waitingClients, setWaitingClients] = useState<Client[]>([]);
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const {getUsers} = useUsersActions();
+  const {users} = useUsersStore();
 
   useEffect(() => {
-    const fetchPendingClients = async () => {
-      const clientRef = collection(FIREBASE_DB, 'clients');
-      const queryFirebase = query(
-        clientRef,
-        where('state', '==', CLIENT_STATES.ACCEPTED),
-      );
-      const queryResult = await getDocs(queryFirebase);
-      const clientsList = queryResult.docs.map(
-        doc => ({id: doc.id, ...doc.data()} as Client),
-      );
-      setWaitingClients(clientsList);
-    };
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setWaitingClients(
+      users.filter(
+        u => u.rol === ROLES.CLIENT && u.state === CLIENT_STATES.ACCEPTED,
+      ),
+    );
+  }, [users]);
+
+  useEffect(() => {
     const fetchAvailableTables = async () => {
       const tableRef = collection(FIREBASE_DB, 'tables');
       const queryFirebase = query(
@@ -45,7 +51,6 @@ const WaitingClientsScreen = () => {
       );
       setAvailableTables(tableList);
     };
-    fetchPendingClients();
     fetchAvailableTables();
   }, []);
 
@@ -91,8 +96,9 @@ const WaitingClientsScreen = () => {
   );
 
   return (
-    <View style={{flex: 1, padding: 20}}>
-      <Text style={{fontSize: 20, marginBotton: 10}}>
+    <View
+      style={{flex: 1, padding: 20, backgroundColor: colors.grayBackground}}>
+      <Text style={{fontSize: 20, marginBotton: 10, color: colors.black}}>
         Clientes esperando asignacion:{' '}
       </Text>
       <FlatList

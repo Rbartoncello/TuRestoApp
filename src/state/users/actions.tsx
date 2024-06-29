@@ -1,8 +1,15 @@
 import {FIREBASE_DB} from '../../services/firebase/FirebaseConfig.ts';
-import {doc, setDoc, getDoc} from 'firebase/firestore';
-import {Client, CLIENT_STATES} from '../../interfaces/client.ts';
+import {doc, setDoc, getDoc, collection, getDocs} from 'firebase/firestore';
+import {CLIENT_STATES, ROLES, Client, User} from './interfaces.ts';
+import {
+  getErrorStatus,
+  getStartStatus,
+  getSuccessStatus,
+} from '../helper/statusStateFactory.ts';
+import {useUsersStore} from './slice.ts';
 
 export const useUsersActions = () => {
+  const {setStatus, setUsers} = useUsersStore();
   const saveNewUser = async (
     dni: string | number,
     lastname: string,
@@ -46,5 +53,21 @@ export const useUsersActions = () => {
     }
   };
 
-  return {saveNewUser, getClient};
+  const getUsers = async () => {
+    setStatus(getStartStatus());
+    try {
+      const collectionRef = collection(FIREBASE_DB, 'clients');
+      const querySnapshot = await getDocs(collectionRef);
+
+      const response = querySnapshot.docs.map(data => data.data()) as User[];
+
+      setStatus(getSuccessStatus());
+      setUsers(response || []);
+    } catch (error) {
+      setStatus(getErrorStatus(error));
+      throw error;
+    }
+  };
+
+  return {saveNewUser, getClient, getUsers};
 };
