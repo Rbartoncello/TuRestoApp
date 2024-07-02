@@ -56,7 +56,7 @@ export const useLogin = () => {
       setToken(response.user?.accessToken);
       setUser(user);
       OneSignal.login(user.rol);
-      navigate(user.rol !== ROLES.CLIENT ? Routes.SELECTION : Routes.MENU_LIST);
+      navigate(user.rol !== ROLES.CLIENT ? Routes.SELECTION : Routes.HOME);
       setStatus(getSuccessStatus());
     } catch (error) {
       setStatus(getErrorStatus(error?.message));

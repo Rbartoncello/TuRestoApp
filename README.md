@@ -78,6 +78,13 @@
 - **Fecha de finalización de la tarea:** 29/06/2024
 - **Branch:** rbartoncello-2024-06-28-19-28-55
 
+### 11. Bartoncello, Ricardo
+
+- **Selection de mesa QR:**
+- **Fecha de inicio de la tarea:** 29/06/2024
+- **Fecha de finalización de la tarea:** 29/06/2024
+- **Branch:** rbartoncello-2024-06-28-19-28-55
+
 ## Notas adicionales
 
 - Aquí puedes añadir cualquier información adicional que consideres relevante para el equipo o para el proyecto en general.
