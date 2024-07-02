@@ -13,6 +13,7 @@ import colors from '../../theme/colors.ts';
 import {useBoolean} from '../../hooks';
 import Modal from '../../components/Modal';
 import {useOrdersActions} from '../../state/orders/actions.tsx';
+import {OneSignal} from 'react-native-onesignal';
 
 const MenuListScreen: FC<MenuScreenProps> = () => {
   const {navigate} = useNavigation<NavigationProp<RootStackParams>>();
@@ -68,9 +69,12 @@ const MenuListScreen: FC<MenuScreenProps> = () => {
             renderItem={({item}) => (
               <View>
                 <TouchableOpacity
-                  onPress={() =>
-                    navigate(Routes.PRODUCT_DETAILS, {id: item.id})
-                  }
+                  onPress={() => {
+                    OneSignal.User.getExternalId().then(alis => {
+                      console.log(alis);
+                    });
+                    navigate(Routes.PRODUCT_DETAILS, {id: item.id});
+                  }}
                   style={styles.itemContainer}>
                   <View style={styles.itemContent}>
                     <Text style={styles.itemName}>{item.name}</Text>

@@ -1,5 +1,12 @@
 import {FIREBASE_DB} from '../../services/firebase/FirebaseConfig.ts';
-import {doc, setDoc, getDoc, collection, getDocs} from 'firebase/firestore';
+import {
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  getDocs,
+  updateDoc,
+} from 'firebase/firestore';
 import {CLIENT_STATES, ROLES, Client, User} from './interfaces.ts';
 import {
   getErrorStatus,
@@ -9,7 +16,7 @@ import {
 import {useUsersStore} from './slice.ts';
 
 export const useUsersActions = () => {
-  const {setStatus, setUsers} = useUsersStore();
+  const {setStatus, setUsers, users} = useUsersStore();
   const saveNewUser = async (
     dni: string | number,
     lastname: string,
@@ -69,5 +76,26 @@ export const useUsersActions = () => {
     }
   };
 
-  return {saveNewUser, getClient, getUsers};
+  const uploadUser = async (user: User) => {
+    setStatus(getStartStatus());
+    try {
+      const clientRef = doc(FIREBASE_DB, 'clients', user.email);
+      await updateDoc(clientRef, user);
+
+      setStatus(getSuccessStatus());
+      setUsers(
+        users.map(u => {
+          if (user.email === u.email) {
+            return user;
+          }
+          return u;
+        }) || [],
+      );
+    } catch (error) {
+      setStatus(getErrorStatus(error));
+      throw error;
+    }
+  };
+
+  return {saveNewUser, getClient, getUsers, uploadUser};
 };

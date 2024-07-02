@@ -26,6 +26,7 @@ const initialValues: FormValues = {
   lastname: '',
   email: '',
   password: '',
+  passwordConfirm: '',
 };
 
 const RegisterScreen = () => {
@@ -85,6 +86,7 @@ const RegisterScreen = () => {
         name: data[2],
         email: '',
         password: '',
+        passwordConfirm: '',
       },
       true,
     );
@@ -96,9 +98,10 @@ const RegisterScreen = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
 
   return (
-    <Container>
+    <Container style={{backgroundColor: colors.grayBackground}}>
       {status.isFetching && <LoadingOverlay />}
       <View style={styles.header}>
         <Pressable onPress={goBack}>
@@ -221,7 +224,23 @@ const RegisterScreen = () => {
                   label: <LabelInput label={'Contraseña'} required={true} />,
                 }}
                 innerRef={passwordRef}
+                nextInnerRef={passwordConfirmRef}
                 value={values.password}
+              />
+              <Field
+                component={PasswordField}
+                name="passwordConfirm"
+                config={{
+                  placeholder: 'Confirmar contraseña',
+                  label: (
+                    <LabelInput
+                      label={'Confirmar contraseña'}
+                      required={true}
+                    />
+                  ),
+                }}
+                innerRef={passwordConfirmRef}
+                value={values.passwordConfirm}
               />
             </View>
             {!dirty && state?.isSubmitted && status.isError && (

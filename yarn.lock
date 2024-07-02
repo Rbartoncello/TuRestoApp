@@ -4748,7 +4748,7 @@ internal-slot@^1.0.7:
     hasown "^2.0.0"
     side-channel "^1.0.4"
 
-invariant@^2.2.4:
+invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -6654,6 +6654,13 @@ react-native-linear-gradient@^2.8.3:
   version "2.8.3"
   resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz"
   integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
+
+react-native-onesignal@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/react-native-onesignal/-/react-native-onesignal-5.2.1.tgz"
+  integrity sha512-HuWoDAIB16FowAXrI8vbagSt5NzS7aSlF/AzkMrXWcqRe/x69S82L8J03UrAAtp2IIVw2R5WDRyIMx/HMiQnew==
+  dependencies:
+    invariant "^2.2.2"
 
 react-native-permissions@^2.0.2:
   version "2.2.2"
