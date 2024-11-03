@@ -68,7 +68,9 @@ const RegisterScreen = () => {
       values.password,
       imageUri.uri,
     );
-    actions.resetForm({});
+    if (!status.isError) {
+      actions.resetForm({});
+    }
   };
 
   const handleReadQR = async (
@@ -152,6 +154,7 @@ const RegisterScreen = () => {
                   />
                 }
                 value={values.idNumber}
+                maxLength={8}
               />
               <Field
                 component={TextField}
@@ -222,6 +225,7 @@ const RegisterScreen = () => {
                 config={{
                   placeholder: 'Contraseña',
                   label: <LabelInput label={'Contraseña'} required={true} />,
+                  returnKeyType: 'next',
                 }}
                 innerRef={passwordRef}
                 nextInnerRef={passwordConfirmRef}
@@ -243,8 +247,8 @@ const RegisterScreen = () => {
                 value={values.passwordConfirm}
               />
             </View>
-            {!dirty && state?.isSubmitted && status.isError && (
-              <ErrorFeedback config={{label: 'El email ya fue registrado'}} />
+            {dirty && status.isError && (
+              <ErrorFeedback config={{label: `${state}`}} />
             )}
             <View style={styles.button}>
               <Button
