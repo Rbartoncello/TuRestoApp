@@ -1,17 +1,34 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {StackNavigation} from './navigation/StackNavigation.tsx';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
+import AnimatedSplashScreen from './components/AnimatedSplashScreen';
 
 const App = () => {
+  const [isSplashVisible, setIsSplashVisible] = useState(true);
+
+  const handleSplashFinish = () => {
+    setIsSplashVisible(false);
+    SplashScreen.hide(); // Oculta el SplashScreen nativo una vez que la animación termina
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 500);
-    //SplashScreen.hide();
-  }, []);
+    // Si quieres ocultar el splash después de un cierto tiempo o esperar alguna carga inicial
+    const timeout = setTimeout(() => {
+      if (isSplashVisible) {
+        handleSplashFinish(); // Asegúrate de que se oculte si la animación aún no ha terminado
+      }
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [isSplashVisible]);
+
+  // Si el splash está visible, mostramos la pantalla animada
+  if (isSplashVisible) {
+    return <AnimatedSplashScreen onFinish={handleSplashFinish} />;
+  }
 
   // Remove this method to stop OneSignal Debugging
   OneSignal.Debug.setLogLevel(LogLevel.Verbose);

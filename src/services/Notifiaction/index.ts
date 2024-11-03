@@ -1,7 +1,4 @@
-import {ROLES} from '../../state/users/interfaces.ts';
-
-export const sendNotification = async (rol: ROLES, message: string) => {
-  console.log('dd');
+export const sendNotification = async (phone: string, message: string) => {
   const response = await fetch('https://onesignal.com/api/v1/notifications', {
     method: 'POST',
     headers: {
@@ -10,7 +7,7 @@ export const sendNotification = async (rol: ROLES, message: string) => {
     },
     body: JSON.stringify({
       app_id: '1c10bc19-cbe8-42cb-ac43-f398591db961',
-      include_aliases: {external_id: [rol]},
+      filters: [{field: 'tag', key: 'phone', relation: '=', value: phone}],
       target_channel: 'push',
       data: {foo: 'bar'},
       contents: {en: message},

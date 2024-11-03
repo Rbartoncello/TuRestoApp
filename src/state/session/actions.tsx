@@ -89,7 +89,7 @@ export const useLogin = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       await saveNewUser(dni, lastname, name, email, ROLES.CLIENT);
       await uploadImage(image, `clients/${email}`);
-      await sendNotification(ROLES.OWNER, 'Se a reguistrado un nuevo cliente');
+      await sendNotification('a04e', 'Se a reguistrado un nuevo cliente');
       setStatus(getSuccessStatus());
       navigate(Routes.LOGIN);
     } catch (e) {
