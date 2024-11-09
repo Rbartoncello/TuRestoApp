@@ -62,7 +62,7 @@ const AnimatedSplashScreen = ({onFinish}: {onFinish: () => void}) => {
     <View style={styles.container}>
       <View style={styles.textContent}>
         <Animated.Text style={[styles.topText, animatedTopTextStyle]}>
-          González Mauricio
+          Gonzales Mauricio
         </Animated.Text>
         <Animated.Text style={[styles.topText, animatedTopTextStyle]}>
           D'agostino Leonel
