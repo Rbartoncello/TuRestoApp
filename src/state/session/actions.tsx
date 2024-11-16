@@ -86,8 +86,23 @@ export const useLogin = () => {
   ) => {
     setStatus(getStartStatus());
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      await saveNewUser(dni, lastname, name, email, ROLES.CLIENT);
+      const isAnonymus = validateAnonymusClient(
+        dni,
+        lastname,
+        name,
+        email,
+        password,
+      );
+      const mailValidated = isAnonymus ? name : `${name}@anonymus`;
+      const passwordValidated = isAnonymus ? name : 'anonimo';
+      const rolValidated = isAnonymus ? ROLES.CLIENT : ROLES.ANONYMUS;
+
+      await createUserWithEmailAndPassword(
+        auth,
+        mailValidated,
+        passwordValidated,
+      );
+      await saveNewUser(dni, lastname, name, email, rolValidated);
       await uploadImage(image, `clients/${email}`);
       await sendNotification('a04e', 'Se a reguistrado un nuevo cliente');
       setStatus(getSuccessStatus());
@@ -108,6 +123,23 @@ export const useLogin = () => {
       console.error(e);
       setStatus(getErrorStatus());
     }
+  };
+
+  const validateAnonymusClient = (
+    dni: string | number,
+    lastname: string,
+    name: string,
+    email: string,
+    password: string,
+  ) => {
+    return (
+      name !== '' &&
+      email === '' &&
+      password === '' &&
+      dni === '' &&
+      lastname === '' &&
+      email === ''
+    );
   };
 
   return {login, logout, signUp};

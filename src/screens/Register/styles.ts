@@ -16,6 +16,15 @@ export default StyleSheet.create({
     borderRadius: 20,
     elevation: 10,
   },
+  formContentAnnymus: {
+    backgroundColor: 'white',
+    flex: 1,
+    minHeight: 240,
+    paddingTop: 10,
+    borderRadius: 20,
+    elevation: 10,
+    justifyContent: 'center',
+  },
   imageProfileContainer: {
     width: 100,
     height: 100,
@@ -57,6 +66,11 @@ export default StyleSheet.create({
     elevation: 10,
   },
   qrButtonContainer: {
+    alignItems: 'center',
+  },
+  switchButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   text: {

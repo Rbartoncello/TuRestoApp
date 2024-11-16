@@ -36,4 +36,10 @@ export const users: {
     password: '123456',
     rol: ROLES.OWNER,
   },
+  {
+    id: 6,
+    email: 'anonimo@anonymus.com',
+    password: '123456',
+    rol: ROLES.ANONYMUS,
+  },
 ];

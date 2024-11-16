@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import type {FormikErrors, FormikHelpers} from 'formik';
 import {Field, Formik} from 'formik';
-import {Image, Pressable, TouchableOpacity, View} from 'react-native';
+import {Image, Pressable, Switch, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import type {FormValues} from './types';
 import validationSchema from './validationSchema';
@@ -18,7 +18,10 @@ import colors from '../../theme/colors.ts';
 import QRScanner from '../../components/QRScanner';
 import {useBoolean} from '../../hooks';
 import {procesarString} from '../../utils/string.ts';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 
 const initialValues: FormValues = {
   idNumber: undefined,
@@ -38,9 +41,10 @@ const RegisterScreen = () => {
   const [imageUri, setImageUri] = useState(
     require('../../assets/images/profile.png'),
   );
+  const [isAnonymus, setClientAnonymus] = useState(false);
 
   const selectImage = async () => {
-    const options = {
+    const options: ImageLibraryOptions = {
       mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 300,
@@ -120,14 +124,23 @@ const RegisterScreen = () => {
         validationSchema={validationSchema}>
         {({submitForm, setValues, values, dirty, status: state, isValid}) => (
           <View style={styles.content}>
-            <View style={styles.qrButtonContainer}>
-              <Text style={styles.text}>Escanea tu DNI</Text>
-              <TouchableOpacity onPress={setActive.on} style={styles.qrButton}>
-                <QRIcon width={100} height={100} />
-              </TouchableOpacity>
-              <Text style={styles.text}>O completá: </Text>
-            </View>
-            <View style={styles.formContent}>
+            {!isAnonymus ? (
+              <View style={styles.qrButtonContainer}>
+                <Text style={styles.text}>Escanea tu DNI</Text>
+                <TouchableOpacity
+                  onPress={setActive.on}
+                  style={styles.qrButton}>
+                  <QRIcon width={100} height={100} />
+                </TouchableOpacity>
+                <Text style={styles.text}>O completá: </Text>
+              </View>
+            ) : (
+              <></>
+            )}
+            <View
+              style={
+                !isAnonymus ? styles.formContent : styles.formContentAnnymus
+              }>
               <View>
                 <TouchableOpacity
                   onPress={() => selectImage()}
@@ -135,117 +148,154 @@ const RegisterScreen = () => {
                   {imageUri && <Image source={imageUri} style={styles.image} />}
                 </TouchableOpacity>
               </View>
-              <Field
-                component={NumberField}
-                name="idNumber"
-                config={{
-                  placeholder: '12345678',
-                  label: <LabelInput label={'DNI'} required={true} />,
-                  returnKeyType: 'next',
-                }}
-                innerRef={idNumberRef}
-                nextInnerRef={lastnameRef}
-                leftIcon={
-                  <UserIcon
-                    color={colors.blue_500}
-                    width={25}
-                    height={25}
-                    style={styles.iconLeft}
-                  />
-                }
-                value={values.idNumber}
-                maxLength={8}
-              />
-              <Field
-                component={TextField}
-                name="lastname"
-                config={{
-                  placeholder: 'Apellido',
-                  label: <LabelInput label={'Apellido'} required={true} />,
-                  returnKeyType: 'next',
-                }}
-                innerRef={lastnameRef}
-                nextInnerRef={nameRef}
-                leftIcon={
-                  <UserIcon
-                    color={colors.blue_500}
-                    width={25}
-                    height={25}
-                    style={styles.iconLeft}
-                  />
-                }
-                value={values.lastname}
-              />
-              <Field
-                component={TextField}
-                name="name"
-                config={{
-                  placeholder: 'Nombre',
-                  label: <LabelInput label={'Nombre'} required={true} />,
-                  returnKeyType: 'next',
-                }}
-                innerRef={nameRef}
-                nextInnerRef={emailRef}
-                leftIcon={
-                  <UserIcon
-                    color={colors.blue_500}
-                    width={25}
-                    height={25}
-                    style={styles.iconLeft}
-                  />
-                }
-                value={values.name}
-              />
-              <Field
-                component={TextField}
-                name="email"
-                config={{
-                  placeholder: 'ejemplo@gmail.com',
-                  label: (
-                    <LabelInput label={'Correo electronico'} required={true} />
-                  ),
-                  returnKeyType: 'next',
-                  keyboardType: 'email-address',
-                }}
-                innerRef={emailRef}
-                nextInnerRef={passwordRef}
-                leftIcon={
-                  <MailIcon
-                    color={colors.blue_500}
-                    width={25}
-                    height={25}
-                    style={styles.iconLeft}
-                  />
-                }
-                value={values.email}
-              />
-              <Field
-                component={PasswordField}
-                name="password"
-                config={{
-                  placeholder: 'Contraseña',
-                  label: <LabelInput label={'Contraseña'} required={true} />,
-                  returnKeyType: 'next',
-                }}
-                innerRef={passwordRef}
-                nextInnerRef={passwordConfirmRef}
-                value={values.password}
-              />
-              <Field
-                component={PasswordField}
-                name="passwordConfirm"
-                config={{
-                  placeholder: 'Confirmar contraseña',
-                  label: (
-                    <LabelInput
-                      label={'Confirmar contraseña'}
-                      required={true}
+              <View style={styles.switchButtonContainer}>
+                <Text>Cliente Anonimo: </Text>
+                <Switch
+                  value={isAnonymus}
+                  onValueChange={() => setClientAnonymus(prev => !prev)}
+                />
+              </View>
+              {isAnonymus ? (
+                <Field
+                  component={TextField}
+                  name="name"
+                  config={{
+                    placeholder: 'Nombre',
+                    label: <LabelInput label={'Nombre'} required={true} />,
+                    returnKeyType: 'next',
+                  }}
+                  innerRef={nameRef}
+                  nextInnerRef={emailRef}
+                  leftIcon={
+                    <UserIcon
+                      color={colors.blue_500}
+                      width={25}
+                      height={25}
+                      style={styles.iconLeft}
                     />
-                  ),
-                }}
-                innerRef={passwordConfirmRef}
-                value={values.passwordConfirm}
-              />
+                  }
+                  value={values.name}
+                />
+              ) : (
+                <>
+                  <Field
+                    component={NumberField}
+                    name="idNumber"
+                    config={{
+                      placeholder: '12345678',
+                      label: <LabelInput label={'DNI'} required={true} />,
+                      returnKeyType: 'next',
+                    }}
+                    innerRef={idNumberRef}
+                    nextInnerRef={lastnameRef}
+                    leftIcon={
+                      <UserIcon
+                        color={colors.blue_500}
+                        width={25}
+                        height={25}
+                        style={styles.iconLeft}
+                      />
+                    }
+                    value={values.idNumber}
+                    maxLength={8}
+                  />
+                  <Field
+                    component={TextField}
+                    name="lastname"
+                    config={{
+                      placeholder: 'Apellido',
+                      label: <LabelInput label={'Apellido'} required={true} />,
+                      returnKeyType: 'next',
+                    }}
+                    innerRef={lastnameRef}
+                    nextInnerRef={nameRef}
+                    leftIcon={
+                      <UserIcon
+                        color={colors.blue_500}
+                        width={25}
+                        height={25}
+                        style={styles.iconLeft}
+                      />
+                    }
+                    value={values.lastname}
+                  />
+                  <Field
+                    component={TextField}
+                    name="name"
+                    config={{
+                      placeholder: 'Nombre',
+                      label: <LabelInput label={'Nombre'} required={true} />,
+                      returnKeyType: 'next',
+                    }}
+                    innerRef={nameRef}
+                    nextInnerRef={emailRef}
+                    leftIcon={
+                      <UserIcon
+                        color={colors.blue_500}
+                        width={25}
+                        height={25}
+                        style={styles.iconLeft}
+                      />
+                    }
+                    value={values.name}
+                  />
+                  <Field
+                    component={TextField}
+                    name="email"
+                    config={{
+                      placeholder: 'ejemplo@gmail.com',
+                      label: (
+                        <LabelInput
+                          label={'Correo electronico'}
+                          required={true}
+                        />
+                      ),
+                      returnKeyType: 'next',
+                      keyboardType: 'email-address',
+                    }}
+                    innerRef={emailRef}
+                    nextInnerRef={passwordRef}
+                    leftIcon={
+                      <MailIcon
+                        color={colors.blue_500}
+                        width={25}
+                        height={25}
+                        style={styles.iconLeft}
+                      />
+                    }
+                    value={values.email}
+                  />
+                  <Field
+                    component={PasswordField}
+                    name="password"
+                    config={{
+                      placeholder: 'Contraseña',
+                      label: (
+                        <LabelInput label={'Contraseña'} required={true} />
+                      ),
+                      returnKeyType: 'next',
+                    }}
+                    innerRef={passwordRef}
+                    nextInnerRef={passwordConfirmRef}
+                    value={values.password}
+                  />
+                  <Field
+                    component={PasswordField}
+                    name="passwordConfirm"
+                    config={{
+                      placeholder: 'Confirmar contraseña',
+                      label: (
+                        <LabelInput
+                          label={'Confirmar contraseña'}
+                          required={true}
+                        />
+                      ),
+                    }}
+                    innerRef={passwordConfirmRef}
+                    value={values.passwordConfirm}
+                  />
+                </>
+              )}
             </View>
             {dirty && status.isError && (
               <ErrorFeedback config={{label: `${state}`}} />
@@ -254,7 +304,7 @@ const RegisterScreen = () => {
               <Button
                 onPress={submitForm}
                 disabled={!isValid || !imageUri.uri}
-                title="Registar"
+                title="Registrar"
                 accessibilityLabel="btn-login-submit"
               />
             </View>
