@@ -24,4 +24,8 @@ const validationSchema = object({
     .required(REQUIRED_MESSAGE),
 });
 
-export default validationSchema;
+ const validationAnonymusSchema= object({
+  name: string().required(REQUIRED_MESSAGE)
+});
+
+export {validationSchema, validationAnonymusSchema};

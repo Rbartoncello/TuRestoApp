@@ -93,18 +93,20 @@ export const useLogin = () => {
         email,
         password,
       );
-      const mailValidated = isAnonymus ? name : `${name}@anonymus`;
-      const passwordValidated = isAnonymus ? name : 'anonimo';
-      const rolValidated = isAnonymus ? ROLES.CLIENT : ROLES.ANONYMUS;
-
-      await createUserWithEmailAndPassword(
+      const mailValidated = !isAnonymus ? name : `${name}@anonymus`;
+      const passwordValidated = !isAnonymus ? name : 'anonimo';
+      const rolValidated = !isAnonymus ? ROLES.CLIENT : ROLES.ANONYMUS;
+      
+      const respCreateUserWithEmailAndPassword = await createUserWithEmailAndPassword(
         auth,
         mailValidated,
         passwordValidated,
       );
+
       await saveNewUser(dni, lastname, name, email, rolValidated);
       await uploadImage(image, `clients/${email}`);
       await sendNotification('a04e', 'Se a reguistrado un nuevo cliente');
+
       setStatus(getSuccessStatus());
       navigate(Routes.LOGIN);
     } catch (e) {
@@ -133,12 +135,11 @@ export const useLogin = () => {
     password: string,
   ) => {
     return (
-      name !== '' &&
-      email === '' &&
-      password === '' &&
-      dni === '' &&
-      lastname === '' &&
-      email === ''
+      name !== "" &&
+      email === "" &&
+      password === "" &&
+      lastname === "" &&
+      email === ""
     );
   };
 

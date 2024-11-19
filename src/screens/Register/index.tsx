@@ -4,7 +4,7 @@ import {Field, Formik} from 'formik';
 import {Image, Pressable, Switch, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import type {FormValues} from './types';
-import validationSchema from './validationSchema';
+import {validationSchema, validationAnonymusSchema } from './validationSchema';
 import {Button, Container, LoadingOverlay, Text, Title} from '../../components';
 import {ErrorFeedback, PasswordField, TextField} from '../../forms/fields';
 import useNavigator from '../../hooks/useNavigation.ts';
@@ -65,7 +65,7 @@ const RegisterScreen = () => {
     actions: FormikHelpers<FormValues>,
   ) => {
     await signUp(
-      values.idNumber,
+      values.idNumber ? values.idNumber : '11111111',
       values.lastname,
       values.name,
       values.email,
@@ -121,7 +121,7 @@ const RegisterScreen = () => {
         onSubmit={handleSubmit}
         initialValues={initialValues}
         validateOnMount
-        validationSchema={validationSchema}>
+        validationSchema={!isAnonymus ? validationSchema : validationAnonymusSchema}>
         {({submitForm, setValues, values, dirty, status: state, isValid}) => (
           <View style={styles.content}>
             {!isAnonymus ? (
