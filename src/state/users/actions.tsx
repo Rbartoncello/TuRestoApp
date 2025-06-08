@@ -97,5 +97,24 @@ export const useUsersActions = () => {
     }
   };
 
-  return {saveNewUser, getClient, getUsers, uploadUser};
+  const sendEmail = async (
+    emails: string[],
+    message: {subject: string; text: string; html: string},
+  ) => {
+    try {
+      const timestampDirecto = Date.now();
+
+      await setDoc(doc(FIREBASE_DB, 'mail', `${timestampDirecto}`), {
+        to: emails,
+        message: message,
+      });
+
+      setStatus(getSuccessStatus());
+    } catch (error) {
+      setStatus(getErrorStatus(error));
+      throw error;
+    }
+  };
+
+  return {saveNewUser, getClient, getUsers, uploadUser, sendEmail};
 };

@@ -30,7 +30,7 @@ const auth = FIREBASE_AUTH;
 export const useLogin = () => {
   const {setStatus, setToken, setUser} = useSessionStore.getState();
   const {navigate} = useNavigation<NavigationProp<RootStackParams>>();
-  const {saveNewUser, getClient} = useUsersActions();
+  const {saveNewUser, getClient, sendEmail} = useUsersActions();
 
   const login = async (email: string, password: string) => {
     setStatus(getStartStatus());
@@ -90,6 +90,11 @@ export const useLogin = () => {
       await saveNewUser(dni, lastname, name, email, ROLES.CLIENT);
       await uploadImage(image, `clients/${email}`);
       await sendNotification('a04e', 'Se a reguistrado un nuevo cliente');
+      await sendEmail([email], {
+        subject: 'Has creado tu usuario con exito',
+        text: 'Aguarda a que nuestro equipo de el alta como cliente',
+        html: '',
+      });
       setStatus(getSuccessStatus());
       navigate(Routes.LOGIN);
     } catch (e) {
