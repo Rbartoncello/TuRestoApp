@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "352647240452",
+    "project_id": "loginapppps",
+    "storage_bucket": "loginapppps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352647240452:android:70223d03b70b2dc51d0e51",
+        "android_client_info": {
+          "package_name": "com.administradordeusuarios"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJKlBdmWLr1pMJlxlGlu3Y8shwP4IHC8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,6 +11,8 @@ import Routes from '../../navigation/routes.ts';
 import {useProductsActions} from '../../state/products/actions.tsx';
 import {Product} from '../../state/products/interfeces.ts';
 import {useProductsStore} from '../../state/products/slice.ts';
+import {useOrdersActions} from '../../state/orders/actions.tsx';
+import {useOrdersStore} from '../../state/orders/slice.ts';
 
 const ProductDetailScreen: FC<ProductDetailScreenProps> = () => {
   const [count, setCount] = useState(1);
@@ -19,13 +21,24 @@ const ProductDetailScreen: FC<ProductDetailScreenProps> = () => {
   const {params} =
     useRoute<RouteProp<RootStackParams, Routes.PRODUCT_DETAILS>>();
   const {status} = useProductsStore();
+  const {addProductToOrder} = useOrdersActions();
+  const {products} = useOrdersStore();
 
   useEffect(() => {
     setProduct(getProductById(params.id));
+    const recordCount = products.find(
+      p => p.id === params.id.toString(),
+    )?.count;
+    setCount(recordCount ? recordCount : 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {goBack} = useNavigation();
+
+  const handleOrder = () => {
+    addProductToOrder(`${product?.id}`, count);
+    goBack();
+  };
 
   return status.isFetching || !product ? (
     <LoadingOverlay />
@@ -79,7 +92,9 @@ const ProductDetailScreen: FC<ProductDetailScreenProps> = () => {
               <PlusIcon color={count === 10 ? colors.gray_100 : colors.black} />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.addButton} onPress={() => goBack()}>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => handleOrder()}>
             <Text style={styles.addButtonText}>Agregar</Text>
           </TouchableOpacity>
         </View>

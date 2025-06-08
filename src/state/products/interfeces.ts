@@ -1,4 +1,4 @@
-import {ROLES} from '../users/interfaces.ts';
+import {ROLES} from '..';
 
 export interface Product {
   id: number;

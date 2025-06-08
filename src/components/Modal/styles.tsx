@@ -1,8 +1,9 @@
 import theme from '../../theme/base';
+import {StyleSheet} from 'react-native';
 
-export const createStyles = () => ({
+export default StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     paddingTop: theme.spacing.marginVertical,
   },

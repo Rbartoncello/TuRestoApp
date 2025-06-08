@@ -26,6 +26,7 @@ const initialValues: FormValues = {
   lastname: '',
   email: '',
   password: '',
+  passwordConfirm: '',
 };
 
 const RegisterScreen = () => {
@@ -67,7 +68,9 @@ const RegisterScreen = () => {
       values.password,
       imageUri.uri,
     );
-    actions.resetForm({});
+    if (!status.isError) {
+      actions.resetForm({});
+    }
   };
 
   const handleReadQR = async (
@@ -85,6 +88,7 @@ const RegisterScreen = () => {
         name: data[2],
         email: '',
         password: '',
+        passwordConfirm: '',
       },
       true,
     );
@@ -96,9 +100,10 @@ const RegisterScreen = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
 
   return (
-    <Container>
+    <Container style={{backgroundColor: colors.grayBackground}}>
       {status.isFetching && <LoadingOverlay />}
       <View style={styles.header}>
         <Pressable onPress={goBack}>
@@ -120,7 +125,7 @@ const RegisterScreen = () => {
               <TouchableOpacity onPress={setActive.on} style={styles.qrButton}>
                 <QRIcon width={100} height={100} />
               </TouchableOpacity>
-              <Text style={styles.text}>O completa: </Text>
+              <Text style={styles.text}>O completá: </Text>
             </View>
             <View style={styles.formContent}>
               <View>
@@ -149,6 +154,7 @@ const RegisterScreen = () => {
                   />
                 }
                 value={values.idNumber}
+                maxLength={8}
               />
               <Field
                 component={TextField}
@@ -195,7 +201,9 @@ const RegisterScreen = () => {
                 name="email"
                 config={{
                   placeholder: 'ejemplo@gmail.com',
-                  label: <LabelInput label={'Email'} required={true} />,
+                  label: (
+                    <LabelInput label={'Correo electronico'} required={true} />
+                  ),
                   returnKeyType: 'next',
                   keyboardType: 'email-address',
                 }}
@@ -217,13 +225,30 @@ const RegisterScreen = () => {
                 config={{
                   placeholder: 'Contraseña',
                   label: <LabelInput label={'Contraseña'} required={true} />,
+                  returnKeyType: 'next',
                 }}
                 innerRef={passwordRef}
+                nextInnerRef={passwordConfirmRef}
                 value={values.password}
               />
+              <Field
+                component={PasswordField}
+                name="passwordConfirm"
+                config={{
+                  placeholder: 'Confirmar contraseña',
+                  label: (
+                    <LabelInput
+                      label={'Confirmar contraseña'}
+                      required={true}
+                    />
+                  ),
+                }}
+                innerRef={passwordConfirmRef}
+                value={values.passwordConfirm}
+              />
             </View>
-            {!dirty && state?.isSubmitted && status.isError && (
-              <ErrorFeedback config={{label: 'El email ya fue registrado'}} />
+            {dirty && status.isError && (
+              <ErrorFeedback config={{label: `${state}`}} />
             )}
             <View style={styles.button}>
               <Button
